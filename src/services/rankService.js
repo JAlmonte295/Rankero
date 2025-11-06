@@ -12,6 +12,19 @@ const index = async () => {
     }
 };
 
+const show = async (rankId) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${rankId}`, {
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        });
+        return res.json();
+    } catch (err) {
+        console.log(err);
+        throw new Error(err);
+    }
+};
+
 export {
     index,
+    show,
 };

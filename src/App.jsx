@@ -8,6 +8,7 @@ import SignInForm from './components/SignInForm/SignInForm';
 import Landing from './components/Landing/Landing';
 import Dashboard from './components/Dashboard/Dashboard';
 import RankList from './components/RankList/RankList';
+import RankDetails from './components/RankDetails/RankDetails';
 
 import { UserContext } from './contexts/UserContext';
 
@@ -34,6 +35,7 @@ const App = () => {
         {user ? (
           <>
           <Route path='/ranks' element={<RankList ranks={ranks} />} />
+          <Route path='/ranks/:rankId' element={<RankDetails />} />
           </>
         ) : (
           <>

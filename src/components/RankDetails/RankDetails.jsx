@@ -30,6 +30,23 @@ const RankDetails = () => {
             <li key={item._id}>{item.itemName}</li>
           ))}
         </ul>
+        <section>
+        <p>{rank.upvotes} upvotes</p>
+        <p>{rank.downvotes} downvotes</p>
+        </section>
+        <section>
+        <h2>Comments</h2>
+        {!rank.comments.length && <p>No comments yet</p>}
+        {rank.comments.map((comment) => (
+          <article key={comment._id}>
+            <header>
+              <h3>{comment.author.username}</h3>
+              <p>{comment.createdAt}</p>
+            </header>
+            <p>{comment.text}</p>
+          </article>
+        ))}
+        </section>
       </article>
     </main>
   );
