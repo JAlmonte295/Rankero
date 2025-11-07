@@ -82,6 +82,35 @@ const createComment = async (rankId, commentFormData) => {
     }
 };
 
+const deleteComment = async (commentId) => {
+    try {
+        const res = await fetch(`${BASE_URL}/comments/${commentId}`, {
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
+        return res.json();
+    } catch (err) {
+        console.log(err);
+        throw new Error(err);
+        }
+};
+
+const deleteRank = async (rankId) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${rankId}`, {
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
+        return res.json();
+    } catch (err) {
+        console.log(err);
+        throw new Error(err);
+    }
+};
 
 export {
     index,
@@ -90,4 +119,5 @@ export {
     upvote,
     downvote,
     createComment as addComment,
+    deleteRank,
 };

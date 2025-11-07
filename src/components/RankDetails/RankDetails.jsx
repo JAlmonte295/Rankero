@@ -5,7 +5,7 @@ import { UserContext } from '../../contexts/UserContext';
 import CommentForm from '../CommentForm/CommentForm';
 
 
-const RankDetails = () => {
+const RankDetails = (props) => {
   const { user } = useContext(UserContext);
   const { rankId } = useParams();
   const [rank, setRank] = useState(null);
@@ -33,6 +33,7 @@ const RankDetails = () => {
     setRank(updatedRank);
   };
 
+  
 
   if (!rank) return <main>Loading...</main>;
 
@@ -50,6 +51,13 @@ const RankDetails = () => {
             <li key={item._id}>{item.itemName}</li>
           ))}
         </ol>
+        {rank.author._id === user._id && (
+          <>
+          <button onClick={() => props.handleDeleteRank(rankId)}>
+            Delete
+            </button>
+          </>
+        )}
         <section>
           <button onClick={handleUpvote} disabled={(rank.upvotes || []).includes(user._id)}>👍</button>
           <span>{(rank.upvotes || []).length}</span>
