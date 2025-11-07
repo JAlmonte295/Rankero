@@ -25,11 +25,11 @@ const RankDetails = () => {
           {rank.description && <p>{rank.description}</p>}
           {rank.author && <p>By {rank.author.username}</p>}
         </header>
-        <ul>
+        <ol>
           {rank.list.map((item) => (
             <li key={item._id}>{item.itemName}</li>
           ))}
-        </ul>
+        </ol>
         <section>
         <p>{rank.upvotes} upvotes</p>
         <p>{rank.downvotes} downvotes</p>

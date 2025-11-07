@@ -5,7 +5,7 @@ const RankForm = (props) => {
         category: 'Games',
         title: '',
         description: '',
-        list: [],
+        list: [{ itemName: '' }], // Start with one empty item
 
     });
     const handleChange = (evt) => {
@@ -13,17 +13,33 @@ const RankForm = (props) => {
         setFormData({ ...formData, [name]: value });
     };
 
+    const handleListChange = (evt, index) => {
+        const { value } = evt.target;
+        const list = [...formData.list];
+        list[index] = { itemName: value };
+        setFormData({ ...formData, list });
+    };
+
+    const handleAddListItem = () => {
+        setFormData({ ...formData, list: [...formData.list, { itemName: '' }] });
+    };
+
+    const handleRemoveListItem = (index) => {
+        const list = [...formData.list];
+        list.splice(index, 1);
+        setFormData({ ...formData, list });
+    };
+
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        // Transform the comma-separated string into an array of objects
-        const listAsArray = Array.isArray(formData.list) ? formData.list : formData.list.split(',').map(item => ({ itemName: item.trim() }));
-        const newRankFormData = { ...formData, list: listAsArray };
-        props.handleAddRank(newRankFormData);
+        // Filter out empty list items before submitting
+        const rankData = { ...formData, list: formData.list.filter(item => item.itemName.trim() !== '') };
+        props.handleAddRank(rankData);
         setFormData({
-            category: '',
+            category: 'Games',
             title: '',
             description: '',
-            list: [],
+            list: [{ itemName: '' }],
         });
     };
 
@@ -38,7 +54,6 @@ const RankForm = (props) => {
                     name='category'
                     value={formData.category}
                     onChange={handleChange}
-                    defaultValue=""
                 >
                     <option value='Games'>Games</option>
                     <option value='Movies'>Movies</option>
@@ -67,15 +82,23 @@ const RankForm = (props) => {
                     value={formData.description}
                     onChange={handleChange}
                 />
-                <label htmlFor='list-input'>List</label>
-                <input
-                    required
-                    type='text'
-                    id='list-input'
-                    name='list'
-                    value={Array.isArray(formData.list) ? formData.list.join(', ') : formData.list}
-                    onChange={handleChange}
-                />
+                <label>List Items</label>
+                {formData.list.map((item, index) => (
+                    <div key={index}>
+                        <input
+                            required
+                            type='text'
+                            name='list-item'
+                            value={item.itemName}
+                            onChange={(evt) => handleListChange(evt, index)}
+                            placeholder={`Item ${index + 1}`}
+                        />
+                        {formData.list.length > 1 && (
+                            <button type="button" onClick={() => handleRemoveListItem(index)}>-</button>
+                        )}
+                    </div>
+                ))}
+                <button type="button" onClick={handleAddListItem}>+ Add Item</button>
                 <button type='submit'>Submit</button>
 
             </form>
