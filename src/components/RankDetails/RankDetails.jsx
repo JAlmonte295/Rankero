@@ -2,6 +2,8 @@ import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import * as rankService from '../../services/rankService';
 import { UserContext } from '../../contexts/UserContext';
+import CommentForm from '../CommentForm/CommentForm';
+
 
 const RankDetails = () => {
   const { user } = useContext(UserContext);
@@ -25,6 +27,12 @@ const RankDetails = () => {
     const updatedRank = await rankService.downvote(rankId);
     setRank(updatedRank);
   };
+
+  const handleAddComment = async (commentData) => {
+    const updatedRank = await rankService.addComment(rankId, commentData);
+    setRank(updatedRank);
+  };
+
 
   if (!rank) return <main>Loading...</main>;
 
@@ -50,6 +58,7 @@ const RankDetails = () => {
         </section>
         <section>
         <h2>Comments</h2>
+        {user && <CommentForm handleAddComment={handleAddComment} />}
         {!(rank.comments || []).length && <p>No comments yet</p>}
         {(rank.comments || []).map((comment) => (
           <article key={comment._id}>

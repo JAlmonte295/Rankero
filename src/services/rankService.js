@@ -66,10 +66,28 @@ const downvote = async (rankId) => {
     }
 };
 
+const createComment = async (rankId, commentFormData) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${rankId}/comments`, {
+            method: 'POST',
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json',  
+        },
+        body: JSON.stringify(commentFormData),
+    });
+    return res.json();
+    } catch (err) {
+        console.log(err);
+        throw new Error(err);
+    }
+};
+
+
 export {
     index,
     show,
     create,
     upvote,
     downvote,
+    createComment as addComment,
 };
