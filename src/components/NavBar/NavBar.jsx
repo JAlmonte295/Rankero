@@ -16,8 +16,8 @@ const NavBar = () => {
       {user ? (
         <ul>
           <li><Link to='/'>Home</Link></li>
-          <li><Link to='/'>New Rank</Link></li>
-          <li><Link to='/'>My Ranks</Link></li>
+          <li><Link to='/ranks/new'>New Rank</Link></li>
+          <li><Link to='/:userId/ranks'>My Ranks</Link></li>
           <li><Link to='/ranks'>Community Ranks</Link></li>
           <li><Link to='/' onClick={handleSignOut}>Sign Out</Link></li>
         </ul>

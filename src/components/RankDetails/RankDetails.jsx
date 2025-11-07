@@ -22,8 +22,8 @@ const RankDetails = () => {
         <header>
           <h2>{rank.category}</h2>
           <h1>{rank.title}</h1>
-          <p>{rank.description}</p>
-          <p>By {rank.author.username}</p>
+          {rank.description && <p>{rank.description}</p>}
+          {rank.author && <p>By {rank.author.username}</p>}
         </header>
         <ul>
           {rank.list.map((item) => (
