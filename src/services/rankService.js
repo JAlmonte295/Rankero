@@ -40,8 +40,36 @@ const create = async (rankFormData) => {
     }
 };
 
+const upvote = async (rankId) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${rankId}/upvote`, {
+            method: 'POST',
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        });
+        return res.json();
+    } catch (err) {
+        console.log(err);
+        throw new Error(err);
+    }
+};
+
+const downvote = async (rankId) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${rankId}/downvote`, {
+            method: 'POST',
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        });
+        return res.json();
+    } catch (err) {
+        console.log(err);
+        throw new Error(err);
+    }
+};
+
 export {
     index,
     show,
-    create
+    create,
+    upvote,
+    downvote,
 };

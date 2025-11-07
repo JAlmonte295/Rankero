@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import * as rankService from '../../services/rankService';
+import { UserContext } from '../../contexts/UserContext';
 
 const RankDetails = () => {
+  const { user } = useContext(UserContext);
   const { rankId } = useParams();
   const [rank, setRank] = useState(null);
 
@@ -13,6 +15,16 @@ const RankDetails = () => {
     };
     fetchRank();
   }, [rankId]);
+
+  const handleUpvote = async () => {
+    const updatedRank = await rankService.upvote(rankId);
+    setRank(updatedRank);
+  };
+
+  const handleDownvote = async () => {
+    const updatedRank = await rankService.downvote(rankId);
+    setRank(updatedRank);
+  };
 
   if (!rank) return <main>Loading...</main>;
 
@@ -31,13 +43,15 @@ const RankDetails = () => {
           ))}
         </ol>
         <section>
-        <p>{rank.upvotes} upvotes</p>
-        <p>{rank.downvotes} downvotes</p>
+          <button onClick={handleUpvote} disabled={(rank.upvotes || []).includes(user._id)}>👍</button>
+          <span>{(rank.upvotes || []).length}</span>
+          <button onClick={handleDownvote} disabled={(rank.downvotes || []).includes(user._id)}>👎</button>
+          <span>{(rank.downvotes || []).length}</span>
         </section>
         <section>
         <h2>Comments</h2>
-        {!rank.comments.length && <p>No comments yet</p>}
-        {rank.comments.map((comment) => (
+        {!(rank.comments || []).length && <p>No comments yet</p>}
+        {(rank.comments || []).map((comment) => (
           <article key={comment._id}>
             <header>
               <h3>{comment.author.username}</h3>
