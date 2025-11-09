@@ -54,10 +54,15 @@ const RankDetails = (props) => {
         
         <ol>
           {rank.list.map((item) => (
-            <li key={item._id}>{item.itemName}</li>
+            <li key={item._id}>
+              {item.imageUrl && (
+                <img src={item.imageUrl} alt={item.itemName} style={{ width: '100%', height: 'auto', objectFit: 'cover' }} />
+              )}
+              {item.itemName}
+            </li>
           ))}
         </ol>
-        {rank.author._id === user._id && (
+        {user && rank.author._id === user._id && (
           <>
           <Link to={`/ranks/${rankId}/edit`}>Edit</Link>
           <button onClick={() => props.handleDeleteRank(rankId)}>
@@ -67,9 +72,9 @@ const RankDetails = (props) => {
         )}
         
         <section>
-          <button onClick={handleUpvote} disabled={(rank.upvotes || []).includes(user._id)}>👍</button>
+          <button onClick={handleUpvote} disabled={!user || (rank.upvotes || []).includes(user._id)}>👍</button>
           <span>{(rank.upvotes || []).length}</span>
-          <button onClick={handleDownvote} disabled={(rank.downvotes || []).includes(user._id)}>👎</button>
+          <button onClick={handleDownvote} disabled={!user || (rank.downvotes || []).includes(user._id)}>👎</button>
           <span>{(rank.downvotes || []).length}</span>
         </section>
         <section>
@@ -82,14 +87,14 @@ const RankDetails = (props) => {
             <header>
               <h3>{comment.author.username}</h3>
               <p>{comment.createdAt}</p>
-              {comment.author._id === user._id && (
+              {user && comment.author._id === user._id && (
                 <>
-                <Link to={`/ranks/${rankId}/comments/${comment._id}/edit`}>Edit</Link>
+                <Link to={`/ranks/${rankId}/comments/${comment._id}/edit`} state={{ commentText: comment.text }}>Edit</Link>
                 <button onClick={() => handleDeleteComment(rankId, comment._id)}>
                   Delete
                 </button>
                 </>
-              )};
+              )}
             </header>
             <p>{comment.text}</p>
           </article>

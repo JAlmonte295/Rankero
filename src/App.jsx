@@ -49,8 +49,8 @@ const App = () => {
 
       setRanks(ranksData);
     };
-    if (user) fetchAllRanks();
-  }, [user]);
+    fetchAllRanks();
+  }, []);
   
   return (
     <>
@@ -69,6 +69,8 @@ const App = () => {
 
         ) : (
           <>
+          <Route path='/ranks' element={<RankList ranks={ranks} />} />
+          <Route path='/ranks/:rankId' element={<RankDetails handleDeleteRank={handleDeleteRank} />} />
           <Route path='/sign-up' element={<SignUpForm />} />
           <Route path='/sign-in' element={<SignInForm />} />
           </>

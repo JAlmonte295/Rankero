@@ -9,7 +9,7 @@ const RankForm = (props) => {
         category: 'Games',
         title: '',
         description: '',
-        list: [{ itemName: '' }], // Start with one empty item
+        list: [{ itemName: '', imageUrl: '' }], // Start with one empty item
 
     });
     const handleChange = (evt) => {
@@ -18,14 +18,14 @@ const RankForm = (props) => {
     };
 
     const handleListChange = (evt, index) => {
-        const { value } = evt.target;
+        const { name, value } = evt.target;
         const list = [...formData.list];
-        list[index] = { itemName: value };
+        list[index] = { ...list[index], [name]: value };
         setFormData({ ...formData, list });
     };
 
     const handleAddListItem = () => {
-        setFormData({ ...formData, list: [...formData.list, { itemName: '' }] });
+        setFormData({ ...formData, list: [...formData.list, { itemName: '', imageUrl: '' }] });
     };
 
     const handleRemoveListItem = (index) => {
@@ -42,12 +42,6 @@ const RankForm = (props) => {
             const rankData = { ...formData, list: formData.list.filter(item => item.itemName.trim() !== '') };
             props.handleAddRank(rankData);
         }
-        setFormData({
-            category: 'Games',
-            title: '',
-            description: '',
-            list: [{ itemName: '' }],
-        });
     };
 
     useEffect(() => {
@@ -56,7 +50,7 @@ const RankForm = (props) => {
             setFormData(rankData);
         };
         if (rankId) fetchRank();
-        return () => setFormData({ category: 'Games', title: '', description: '', list: [{ itemName: '' }] })
+        return () => setFormData({ category: 'Games', title: '', description: '', list: [{ itemName: '', imageUrl: '' }] })
     }, [rankId]);
 
     return (
@@ -104,10 +98,17 @@ const RankForm = (props) => {
                         <input
                             required
                             type='text'
-                            name='list-item'
+                            name='itemName'
                             value={item.itemName}
                             onChange={(evt) => handleListChange(evt, index)}
                             placeholder={`Item ${index + 1}`}
+                        />
+                        <input
+                            type='url'
+                            name='imageUrl'
+                            value={item.imageUrl || ''}
+                            onChange={(evt) => handleListChange(evt, index)}
+                            placeholder='Image URL (optional)'
                         />
                         {formData.list.length > 1 && (
                             <button type="button" onClick={() => handleRemoveListItem(index)}>-</button>
