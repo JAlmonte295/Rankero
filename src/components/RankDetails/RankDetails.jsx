@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import * as rankService from '../../services/rankService';
 import { UserContext } from '../../contexts/UserContext';
 import CommentForm from '../CommentForm/CommentForm';
@@ -53,6 +53,7 @@ const RankDetails = (props) => {
         </ol>
         {rank.author._id === user._id && (
           <>
+          <Link to={`/ranks/${rankId}/edit`}>Edit</Link>
           <button onClick={() => props.handleDeleteRank(rankId)}>
             Delete
             </button>

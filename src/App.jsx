@@ -30,6 +30,12 @@ const App = () => {
     navigate('/ranks');
   };
 
+  const handleUpdateRank = async (rankId, rankFormData) => {
+    const updatedRank = await rankService.updateRank(rankId, rankFormData);
+    setRanks(ranks.map((rank) => (rank._id === updatedRank._id ? updatedRank : rank)));
+    navigate(`/ranks/${rankId}`);
+  };
+
   useEffect(() => {
     const fetchAllRanks = async () => {
       const ranksData = await rankService.index();
@@ -49,7 +55,9 @@ const App = () => {
           <Route path='/ranks' element={<RankList ranks={ranks} />} />
           <Route path='/ranks/new' element={<RankForm handleAddRank={handleAddRank}  />} />
           <Route path='/ranks/:rankId' element={<RankDetails handleDeleteRank={handleDeleteRank} />} />
+          <Route path='/ranks/:rankId/edit' element={<RankForm handleUpdateRank={handleUpdateRank}/>} />
           </>
+
         ) : (
           <>
           <Route path='/sign-up' element={<SignUpForm />} />

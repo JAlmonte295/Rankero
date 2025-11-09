@@ -1,6 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import * as rankService from '../../services/rankService';
 
 const RankForm = (props) => {
+    const { rankId } = useParams();
+    console.log(rankId);
     const [formData, setFormData] = useState({
         category: 'Games',
         title: '',
@@ -32,9 +36,12 @@ const RankForm = (props) => {
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        // Filter out empty list items before submitting
-        const rankData = { ...formData, list: formData.list.filter(item => item.itemName.trim() !== '') };
-        props.handleAddRank(rankData);
+        if (rankId) {
+            props.handleUpdateRank(rankId, formData);
+        } else {
+            const rankData = { ...formData, list: formData.list.filter(item => item.itemName.trim() !== '') };
+            props.handleAddRank(rankData);
+        }
         setFormData({
             category: 'Games',
             title: '',
@@ -43,9 +50,18 @@ const RankForm = (props) => {
         });
     };
 
+    useEffect(() => {
+        const fetchRank = async () => {
+            const rankData = await rankService.show(rankId);
+            setFormData(rankData);
+        };
+        if (rankId) fetchRank();
+        return () => setFormData({ category: 'Games', title: '', description: '', list: [{ itemName: '' }] })
+    }, [rankId]);
 
     return (
         <main>
+            <h1>{rankId ? 'Edit Rank' : 'New Rank'}</h1>
             <form onSubmit={handleSubmit}>
                 <label htmlFor='category-input'>Category</label>
                 <select
