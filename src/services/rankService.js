@@ -1,4 +1,5 @@
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/ranks`;
+const COMMENTS_BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/comments`;
 
 const index = async () => {
     try {
@@ -82,9 +83,9 @@ const createComment = async (rankId, commentFormData) => {
     }
 };
 
-const deleteComment = async (commentId) => {
+const deleteComment = async (rankId, commentId) => {
     try {
-        const res = await fetch(`${BASE_URL}/comments/${commentId}`, {
+        const res = await fetch(`${BASE_URL}/${rankId}/comments/${commentId}`, {
             method: 'DELETE',
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -97,12 +98,30 @@ const deleteComment = async (commentId) => {
         }
 };
 
+const updateComment = async (rankId, commentId, commentFormData) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${rankId}/comments/${commentId}`, {
+            method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(commentFormData),
+        });
+        return res.json();
+    } catch (err) {
+        console.log(err);
+        throw new Error(err);
+    }
+};
+
 const deleteRank = async (rankId) => {
     try {
         const res = await fetch(`${BASE_URL}/${rankId}`, {
             method: 'DELETE',
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
+                'Content-Type': 'application/json',
             },
         });
         return res.json();
@@ -117,7 +136,7 @@ const updateRank = async (rankId, rankFormData) => {
         const res = await fetch(`${BASE_URL}/${rankId}`, {
             method: 'PUT',
             headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('token'),
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(rankFormData),
@@ -140,4 +159,6 @@ export {
     deleteRank,
     deleteComment,
     updateRank,
+    updateComment,
+
 };

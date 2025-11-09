@@ -33,19 +33,25 @@ const RankDetails = (props) => {
     setRank(updatedRank);
   };
 
-  
+  const handleDeleteComment = async (rankId, commentId) => {
+    await rankService.deleteComment(rankId, commentId);
+    const rankData = await rankService.show(rankId);
+    setRank(rankData);
+  };
 
   if (!rank) return <main>Loading...</main>;
 
   return (
     <main>
       <article>
+        
         <header>
           <h2>{rank.category}</h2>
           <h1>{rank.title}</h1>
           {rank.description && <p>{rank.description}</p>}
           {rank.author && <p>By {rank.author.username}</p>}
         </header>
+        
         <ol>
           {rank.list.map((item) => (
             <li key={item._id}>{item.itemName}</li>
@@ -59,6 +65,7 @@ const RankDetails = (props) => {
             </button>
           </>
         )}
+        
         <section>
           <button onClick={handleUpvote} disabled={(rank.upvotes || []).includes(user._id)}>👍</button>
           <span>{(rank.upvotes || []).length}</span>
@@ -66,6 +73,7 @@ const RankDetails = (props) => {
           <span>{(rank.downvotes || []).length}</span>
         </section>
         <section>
+        
         <h2>Comments</h2>
         {user && <CommentForm handleAddComment={handleAddComment} />}
         {!(rank.comments || []).length && <p>No comments yet</p>}
@@ -74,6 +82,14 @@ const RankDetails = (props) => {
             <header>
               <h3>{comment.author.username}</h3>
               <p>{comment.createdAt}</p>
+              {comment.author._id === user._id && (
+                <>
+                <Link to={`/ranks/${rankId}/comments/${comment._id}/edit`}>Edit</Link>
+                <button onClick={() => handleDeleteComment(rankId, comment._id)}>
+                  Delete
+                </button>
+                </>
+              )};
             </header>
             <p>{comment.text}</p>
           </article>

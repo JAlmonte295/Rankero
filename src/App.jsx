@@ -10,6 +10,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 import RankList from './components/RankList/RankList';
 import RankDetails from './components/RankDetails/RankDetails';
 import RankForm from './components/RankForm/RankForm';
+import CommentForm from './components/CommentForm/CommentForm';
 
 import { UserContext } from './contexts/UserContext';
 
@@ -36,6 +37,12 @@ const App = () => {
     navigate(`/ranks/${rankId}`);
   };
 
+  const handleUpdateComment = async (rankId, commentId, commentFormData) => {
+    const updatedRank = await rankService.updateComment(rankId, commentId, commentFormData);
+    setRanks(ranks.map((rank) => (rank._id === updatedRank._id ? updatedRank : rank)));
+    navigate(`/ranks/${rankId}`);
+  };
+
   useEffect(() => {
     const fetchAllRanks = async () => {
       const ranksData = await rankService.index();
@@ -56,6 +63,8 @@ const App = () => {
           <Route path='/ranks/new' element={<RankForm handleAddRank={handleAddRank}  />} />
           <Route path='/ranks/:rankId' element={<RankDetails handleDeleteRank={handleDeleteRank} />} />
           <Route path='/ranks/:rankId/edit' element={<RankForm handleUpdateRank={handleUpdateRank}/>} />
+          <Route path='/ranks/:rankId/comments/:commentId/edit' element={<CommentForm handleUpdateComment={handleUpdateComment} />} />
+          <Route path='/:userId/ranks' element={<RankList ranks={ranks} />} />
           </>
 
         ) : (
