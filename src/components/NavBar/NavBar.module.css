@@ -16,9 +16,15 @@
 }
 
 .container img {
-  width: 120px;
+  width: 210px;
   margin-bottom: 28px;
   align-self: center;
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+.container img:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
 }
 
 .container ul {

@@ -15,8 +15,8 @@ const getCategoryColor = (category) => {
   return `hsl(${h}, 70%, 40%)`;
 };
 
-const RankList = ({ ranks }) => {
-  const [searchTerm, setSearchTerm] = useState('');
+const RankList = ({ ranks, onBack, initialSearchTerm = '' }) => {
+  const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
 
@@ -43,6 +43,11 @@ const RankList = ({ ranks }) => {
 
   return (
     <div className={styles.rankListPage}>
+      {onBack && (
+        <button onClick={onBack} className={styles.backButton}>
+          &larr; Back
+        </button>
+      )}
       <div className={styles.controlsContainer}>
         <input
           type="text"

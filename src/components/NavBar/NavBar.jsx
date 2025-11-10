@@ -16,17 +16,19 @@ const NavBar = () => {
 
   return (
     <nav className={`navbar ${styles.container}`}>
-      <img src={logo} alt="Rankero" />
+      <Link to="/">
+        <img src={logo} alt="Rankero" />
+      </Link>
       {user ? (
         <ul>
-          <li><Link to='/'>Home</Link></li>
+          <li><Link to='/'>Ranks</Link></li>
           <li><Link to='/ranks/new'>New Rank</Link></li>
           <li><Link to={`/${user._id}/ranks`}>My Ranks</Link></li>
           <li><Link to='/' onClick={handleSignOut}>Sign Out</Link></li>
         </ul>
       ) : (
         <ul>
-          <li><Link to='/'>Home</Link></li>
+          <li><Link to='/'>Ranks</Link></li>
           <li><Link to='/sign-in'>Sign In</Link></li>
           <li><Link to='/sign-up'>Sign Up</Link></li>
         </ul>
