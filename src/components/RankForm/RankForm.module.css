@@ -1,67 +1,102 @@
-/* src/components/RankForm/RankForm.module.css */
-
 .container {
-  height: 100%;
   display: flex;
-  align-items: center;
-  flex-direction: column;
   justify-content: center;
+  padding: 40px 20px;
 }
 
-.container form {
-  width: 100%;
-  display: flex;
-  max-width: 500px;
-  border-radius: 5px;
-  flex-direction: column;
+.form {
   background-color: var(--card-background);
-  padding: 21px 21px 28px 21px;
   border: 1px solid var(--border);
-  box-shadow: -1px 5px 19px -5px rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: -1px 5px 19px -5px rgba(0, 0, 0, 0.25);
-  -webkit-box-shadow: -1px 5px 19px -5px rgba(0, 0, 0, 0.25);
-}
-
-.container h1 {
-  text-align: center;
-  margin-bottom: 21px;
-}
-
-.container label {
-  font-weight: 600;
-  margin-bottom: 7px;
-  color: var(--accent);
-}
-
-.container form input,
-.container form textarea {
+  border-radius: 10px;
+  padding: 30px 40px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
   width: 100%;
-  padding: 14px;
-  color: white;
-  font-size: 14px;
-  resize: vertical;
-  border-radius: 5px;
-  margin-bottom: 21px;
+  max-width: 800px; /* Make the form wider */
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Add space between form elements */
+}
+
+.form h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2.5em;
+}
+
+.form label {
+  font-weight: bold;
+  font-size: 1.1em;
+  color: #eee;
+  margin-bottom: -10px; /* Pull it closer to the input */
+}
+
+.form input,
+.form select {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.1em;
+  border-radius: 8px;
   border: 1px solid var(--border);
   background-color: var(--background);
-}
-
-.container form textarea {
-  min-height: 120px;
-}
-
-.container form button {
   color: white;
-  padding: 14px;
-  font-weight: 600;
-  border-radius: 5px;
-  margin-top: 14px;
-  background: var(--primary);
-  border: 1px solid var(--border);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
 }
 
-.container input:focus,
-.container textarea:focus {
-  outline: none;
-  border: 1px solid var(--primary);
+.listItemsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.listItem input[name="itemName"] {
+  flex: 2; /* Give more space to the item name */
+}
+
+.listItem input[name="imageUrl"] {
+  flex: 3; /* And the image URL */
+}
+
+.removeButton, .addButton {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.2em;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.removeButton {
+  background-color: var(--danger);
+  color: white;
+}
+
+.addButton {
+  background-color: #28a745; /* A nice green for adding */
+  color: white;
+  align-self: flex-start; /* Align to the left */
+}
+
+.submitButton {
+  margin-top: 20px;
+  padding: 15px;
+  font-size: 1.2em;
+  font-weight: bold;
+  border-radius: 8px;
+  border: none;
+  background-color: var(--accent);
+  color: var(--background);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submitButton:hover {
+  background-color: var(--primary);
 }

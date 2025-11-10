@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import * as rankService from '../../services/rankService';
-
-import style from './RankForm.module.css';
+import styles from './RankForm.module.css';
 
 
 const RankForm = (props) => {
     const { rankId } = useParams();
-    console.log(rankId);
     const [formData, setFormData] = useState({
         category: 'Games',
         title: '',
@@ -57,9 +55,9 @@ const RankForm = (props) => {
     }, [rankId]);
 
     return (
-        <main className={style.container}>
-            <h1>{rankId ? 'Edit Rank' : 'New Rank'}</h1>
-            <form onSubmit={handleSubmit}>
+        <main className={styles.container}>
+            <form onSubmit={handleSubmit} className={styles.form}>
+                <h1>{rankId ? 'Edit Rank' : 'New Rank'}</h1>
                 <label htmlFor='category-input'>Category</label>
                 <select
                     required
@@ -95,32 +93,33 @@ const RankForm = (props) => {
                     value={formData.description}
                     onChange={handleChange}
                 />
-                <label>List Items</label>
-                {formData.list.map((item, index) => (
-                    <div key={index}>
-                        <input
-                            required
-                            type='text'
-                            name='itemName'
-                            value={item.itemName}
-                            onChange={(evt) => handleListChange(evt, index)}
-                            placeholder={`Item ${index + 1}`}
-                        />
-                        <input
-                            type='url'
-                            name='imageUrl'
-                            value={item.imageUrl || ''}
-                            onChange={(evt) => handleListChange(evt, index)}
-                            placeholder='Image URL (optional)'
-                        />
-                        {formData.list.length > 1 && (
-                            <button type="button" onClick={() => handleRemoveListItem(index)}>-</button>
-                        )}
-                    </div>
-                ))}
-                <button type="button" onClick={handleAddListItem}>+ Add Item</button>
-                <button type='submit'>Submit</button>
-
+                <div className={styles.listItemsContainer}>
+                    <label>List Items</label>
+                    {formData.list.map((item, index) => (
+                        <div key={index} className={styles.listItem}>
+                            <input
+                                required
+                                type='text'
+                                name='itemName'
+                                value={item.itemName}
+                                onChange={(evt) => handleListChange(evt, index)}
+                                placeholder={`Item ${index + 1}`}
+                            />
+                            <input
+                                type='url'
+                                name='imageUrl'
+                                value={item.imageUrl || ''}
+                                onChange={(evt) => handleListChange(evt, index)}
+                                placeholder='Image URL (optional)'
+                            />
+                            {formData.list.length > 1 && (
+                                <button type="button" onClick={() => handleRemoveListItem(index)} className={styles.removeButton}>-</button>
+                            )}
+                        </div>
+                    ))}
+                    <button type="button" onClick={handleAddListItem} className={styles.addButton}>+ Add Item</button>
+                </div>
+                <button type='submit' className={styles.submitButton}>Submit</button>
             </form>
         </main>
     );
