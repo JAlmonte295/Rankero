@@ -37,20 +37,23 @@ const RankList = ({ ranks }) => {
     <main className={styles.container}>
       <h1>{isMyRanksPage ? 'My Ranks' : 'Newest Ranks'}</h1>
       <input
+        className={styles.searchBar}
         type='text'
         placeholder='Search by title or category...'
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      {currentRanks.map((rank) => (
-        <article key={rank._id}>
-          <Link to={`/ranks/${rank._id}`}>
-            <h2>{rank.title}</h2>
-          </Link>
-          <p>Category: {rank.category}</p>
-          <p>By: {rank.author.username}</p>
-        </article>
-      ))}
+      <section className={styles.ranksContainer}>
+        {currentRanks.map((rank) => (
+          <article key={rank._id}>
+            <Link to={`/ranks/${rank._id}`}>
+              <h2>{rank.title}</h2>
+            </Link>
+            <p>Category: {rank.category}</p>
+            <p>By: {rank.author.username}</p>
+          </article>
+        ))}
+      </section>
       <div>
         <button
           onClick={() => setCurrentPage(currentPage - 1)}

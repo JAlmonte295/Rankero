@@ -10,9 +10,9 @@
   position: fixed;
   padding: 28px 21px;
   align-items: flex-start;
-  background: white;
+  background: var(--card-background);
   flex-direction: column;
-  border-right: 1px solid rgb(200, 200, 200);
+  border-right: 1px solid var(--border);
 }
 
 .container img {
@@ -34,6 +34,10 @@
 .container li {
   padding: 14px 0;
   text-align: left;
+}
+
+.container a {
+  color: var(--accent);
 }
 
 @media only screen and (max-width: 414px) {
