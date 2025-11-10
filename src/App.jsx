@@ -1,17 +1,15 @@
-import { useContext, useState, useEffect, use } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { useContext, useState, useEffect } from 'react';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import * as rankService from './services/rankService';
 
 import NavBar from './components/NavBar/NavBar';
+import Header from './components/Header/Header';
 import SignUpForm from './components/SignUpForm/SignUpForm';
 import SignInForm from './components/SignInForm/SignInForm';
 import Landing from './components/Landing/Landing';
-import Dashboard from './components/Dashboard/Dashboard';
 import RankList from './components/RankList/RankList';
 import RankDetails from './components/RankDetails/RankDetails';
 import RankForm from './components/RankForm/RankForm';
-import CommentForm from './components/CommentForm/CommentForm';
-import MenuButton from './components/MenuButton/MenuButton.jsx';
 
 import { UserContext } from './contexts/UserContext';
 
@@ -20,6 +18,7 @@ const App = () => {
   const [ranks, setRanks] = useState([]);
   const [isNavOpen, setIsNavOpen] = useState(true);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleAddRank = async (rankFormData) => {
     const newRank = await rankService.create(rankFormData);
@@ -49,11 +48,25 @@ const App = () => {
     setIsNavOpen(!isNavOpen);
   };
 
+  const getPageTitle = () => {
+    const path = location.pathname;
+    if (path === '/') return 'Home';
+    if (path === '/ranks') return 'All Ranks';
+    if (path === '/ranks/new') return 'Create New Rank';
+    if (path.startsWith('/ranks/') && path.endsWith('/edit')) return 'Edit Rank';
+    if (path.startsWith('/ranks/')) return 'Rank Details';
+    if (path.endsWith('/ranks')) return 'My Ranks';
+    if (path === '/sign-up') return 'Sign Up';
+    if (path === '/sign-in') return 'Sign In';
+    return 'Rankero';
+  };
+
+  const pageTitle = getPageTitle();
+
 
   useEffect(() => {
     const fetchAllRanks = async () => {
       const ranksData = await rankService.index();
-
       setRanks(ranksData);
     };
     fetchAllRanks();
@@ -69,8 +82,8 @@ const App = () => {
   
   return (
     <>
-    <MenuButton onClick={toggleNav} />
-    <NavBar/>
+      <Header pageTitle={pageTitle} toggleNav={toggleNav} />
+      <NavBar/>
       <main>
         <Routes>
           <Route path='/' element={user ? <RankList ranks={ranks}/> : <Landing ranks={ranks} />} />
@@ -78,9 +91,8 @@ const App = () => {
             <>
             <Route path='/ranks' element={<RankList ranks={ranks} />} />
             <Route path='/ranks/new' element={<RankForm handleAddRank={handleAddRank}  />} />
-            <Route path='/ranks/:rankId' element={<RankDetails handleDeleteRank={handleDeleteRank} />} />
-            <Route path='/ranks/:rankId/edit' element={<RankForm handleUpdateRank={handleUpdateRank}/>} />
-            <Route path='/ranks/:rankId/comments/:commentId/edit' element={<CommentForm handleUpdateComment={handleUpdateComment} />} />
+            <Route path='/ranks/:rankId' element={<RankDetails handleDeleteRank={handleDeleteRank} handleUpdateComment={handleUpdateComment} />} />
+            <Route path='/ranks/:rankId/edit' element={<RankForm handleUpdateRank={handleUpdateRank} />} />
             <Route path='/:userId/ranks' element={<RankList ranks={ranks} />} />
             </>
   

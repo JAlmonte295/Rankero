@@ -1,153 +1,132 @@
 /* src/components/RankList/RankList.module.css */
 
-/* List styling */
+.rankListPage {
+  padding: 20px;
+  max-width: 1200px; /* Optional: constrain width for better readability */
+  margin: 0 auto; /* Center the content */
+}
 
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 21px;
-  gap: 21px;
+.controlsContainer {
+  margin-bottom: 25px;
 }
 
 .searchBar {
   width: 100%;
-  max-width: 500px;
-  padding: 12px 20px;
-  font-size: 16px;
-  border-radius: 25px;
-  border: 1px solid var(--border);
-  background-color: var(--background);
-  color: white;
-  transition: border-color 0.2s ease-in-out;
-}
-
-.searchBar::placeholder {
-  color: #888;
-}
-
-.searchBar:focus {
-  outline: none;
-  border-color: var(--primary);
-}
-
-.ranksContainer {
-  gap: 14px;
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-}
-
-/* Media queries */
-
-@media only screen and (min-width: 900px) {
-  .ranksContainer {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media only screen and (min-width: 1200px) {
-  .ranksContainer {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media only screen and (min-width: 1500px) {
-  .ranksContainer {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-/* Hoot card styling */
-
-.ranksContainer article {
-  width: 100%;
-  min-height: 150px; /* Reduced height, allowing content to expand */
-  padding: 14px 21px;
-  border-radius: 5px;
+  padding: 12px 15px;
+  font-size: 1em;
+  border-radius: 8px;
   border: 1px solid var(--border);
   background-color: var(--card-background);
-  box-shadow: -1px 5px 19px -5px rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: -1px 5px 19px -5px rgba(0, 0, 0, 0.25);
-  -webkit-box-shadow: -1px 5px 19px -5px rgba(0, 0, 0, 0.25);
-  display: flex; /* Make it a flex container */
-  flex-direction: column; /* Stack children vertically */
-  justify-content: space-between; /* Distribute space between items */
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth transitions */
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.ranksContainer article:hover {
-  transform: translateY(-5px); /* Lift effect on hover */
-  box-shadow: -1px 8px 25px -5px rgba(0, 0, 0, 0.35); /* Enhanced shadow */
+.rankGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
 }
 
-.ranksContainer article .category {
-  font-size: 12px;
-  color: var(--accent); /* Use accent color for category */
-  margin-bottom: 7px;
+.rankCard {
+  background-color: var(--card-background);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  display: flex;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-.ranksContainer article ul {
+.rankCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+.rankLink {
+  text-decoration: none;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.rankCategory {
+  background-color: var(--primary);
+  color: var(--background);
+  padding: 4px 12px;
+  border-radius: 15px;
+  font-size: 0.8em;
+  font-weight: bold;
+  text-transform: uppercase;
+  align-self: flex-start;
+  margin-bottom: 12px;
+}
+
+.rankTitle {
+  color: white;
+  font-size: 1.6em;
+  margin-top: 0;
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.choicePreview h4 {
+  color: white;
+  font-size: 1.1em;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 5px;
+}
+
+.choicePreview ul {
   list-style: none;
   padding: 0;
   margin: 0;
-  font-size: 14px;
-  color: #aaa; /* Lighter text for list items */
 }
 
-.ranksContainer article li {
-  margin-bottom: 4px;
-  overflow: hidden;
+.choicePreview li {
+  color: #ccc;
+  font-size: 0.95em;
+  margin-bottom: 5px;
   white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.ranksContainer article li:last-child {
-  margin-bottom: 0;
+.moreChoices {
+  font-style: italic;
+  color: #888;
 }
 
-.ranksContainer article header {
-  margin-bottom: 14px;
-}
-
-.ranksContainer article h2 {
-  margin: 0;
-  font-size: 20px;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  text-overflow: ellipsis;
-  -webkit-box-orient: vertical;
-  color: var(--primary); /* Make title use primary color */
-}
-
-.ranksContainer article p {
-  width: 100%;
-  font-size: 14px;
-  font-weight: 400;
-  overflow: hidden;
-  line-height: 1.5rem;
-  display: -webkit-box;
-  text-align: justify;
-  -webkit-line-clamp: 3;
-  word-break: keep-all;
-  text-align-last: left;
-  -webkit-box-orient: vertical;
-}
-
-.ranksContainer header div:first-child {
+.pagination {
   display: flex;
+  justify-content: center;
   align-items: center;
-  margin: 7px 0px 12px 0px;
-  justify-content: space-between;
+  margin-top: 30px;
+  gap: 15px;
 }
 
-.ranksContainer header div:first-child img {
-  margin: 0;
-  width: 32px;
-  height: 32px;
-  opacity: 0.8;
-  padding: 3px;
-  border-radius: 50%;
+.pagination button {
+  padding: 10px 20px;
   border: 1px solid var(--border);
+  background-color: var(--card-background);
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination button:not(:disabled):hover {
+  background-color: var(--primary);
+  color: var(--background);
+}
+
+.pagination span {
+  color: #ccc;
+  font-weight: bold;
 }
