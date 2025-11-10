@@ -1,41 +1,46 @@
 /* src/components/NavBar/NavBar.module.css */
 
 .container {
+  left: 0;
   top: 0;
   z-index: 1;
-  width: 100%;
-  height: 80px;
+  width: 240px;
+  height: 100%;
   display: flex;
   position: fixed;
-  padding: 14px 21px;
-  align-items: center;
+  padding: 28px 21px;
+  align-items: flex-start;
   background: white;
-  border-bottom: 1px solid rgb(200, 200, 200);
+  flex-direction: column;
+  border-right: 1px solid rgb(200, 200, 200);
 }
 
 .container img {
   width: 50px;
+  margin-bottom: 28px;
 }
 
 .container ul {
   margin: 0;
+  padding: 0;
   width: 100%;
   display: flex;
   list-style: none;
   font-weight: bold;
-  align-items: center;
-  justify-content: flex-end;
+  align-items: flex-start;
+  flex-direction: column;
 }
 
 .container li {
-  margin-left: 35px;
-  text-align: right;
+  padding: 14px 0;
+  text-align: left;
 }
 
 @media only screen and (max-width: 414px) {
   .container ul {
     padding-left: 0px;
   }
+
   .container li {
     font-size: 15px;
   }

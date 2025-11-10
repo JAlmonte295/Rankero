@@ -35,7 +35,7 @@ const RankList = ({ ranks }) => {
 
   return (
     <main className={styles.container}>
-      <h1>{isMyRanksPage ? 'My Ranks' : 'Community Ranks'}</h1>
+      <h1>{isMyRanksPage ? 'My Ranks' : 'Newest Ranks'}</h1>
       <input
         type='text'
         placeholder='Search by title or category...'

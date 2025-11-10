@@ -56,7 +56,7 @@ const App = () => {
     <>
       <NavBar/>
       <Routes>
-        <Route path='/' element={user ? <Dashboard /> : <Landing />} />
+        <Route path='/' element={user ? <RankList ranks={ranks}/> : <Landing />} />
         {user ? (
           <>
           <Route path='/ranks' element={<RankList ranks={ranks} />} />

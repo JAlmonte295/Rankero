@@ -94,7 +94,7 @@
 }
 
 .container header button:active {
-  background-color: rgb(190, 190, 190);
+  background-color: var(--danger);
 }
 
 /* Comment form styling */
