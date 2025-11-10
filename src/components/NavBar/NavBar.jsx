@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
+import logo from '../../assets/images/logo.png';
 import { UserContext } from '../../contexts/UserContext';
-
 import styles from './NavBar.module.css';
 
 
@@ -15,7 +15,8 @@ const NavBar = () => {
   };
 
   return (
-    <nav className={styles.container}>
+    <nav className={`navbar ${styles.container}`}>
+      <img src={logo} alt="Rankero" />
       {user ? (
         <ul>
           <li><Link to='/'>Home</Link></li>

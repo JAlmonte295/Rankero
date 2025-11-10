@@ -11,12 +11,14 @@ import RankList from './components/RankList/RankList';
 import RankDetails from './components/RankDetails/RankDetails';
 import RankForm from './components/RankForm/RankForm';
 import CommentForm from './components/CommentForm/CommentForm';
+import MenuButton from './components/MenuButton/MenuButton.jsx';
 
 import { UserContext } from './contexts/UserContext';
 
 const App = () => {
   const { user } = useContext(UserContext);
   const [ranks, setRanks] = useState([]);
+  const [isNavOpen, setIsNavOpen] = useState(true);
   const navigate = useNavigate();
 
   const handleAddRank = async (rankFormData) => {
@@ -43,6 +45,11 @@ const App = () => {
     navigate(`/ranks/${rankId}`);
   };
 
+  const toggleNav = () => {
+    setIsNavOpen(!isNavOpen);
+  };
+
+
   useEffect(() => {
     const fetchAllRanks = async () => {
       const ranksData = await rankService.index();
@@ -51,32 +58,42 @@ const App = () => {
     };
     fetchAllRanks();
   }, []);
+
+  useEffect(() => {
+    if (isNavOpen) {
+      document.body.classList.remove('nav-closed');
+    } else {
+      document.body.classList.add('nav-closed');
+    }
+  }, [isNavOpen]);
   
   return (
     <>
-      <NavBar/>
-      <Routes>
-        <Route path='/' element={user ? <RankList ranks={ranks}/> : <Landing ranks={ranks} />} />
-        {user ? (
-          <>
-          <Route path='/ranks' element={<RankList ranks={ranks} />} />
-          <Route path='/ranks/new' element={<RankForm handleAddRank={handleAddRank}  />} />
-          <Route path='/ranks/:rankId' element={<RankDetails handleDeleteRank={handleDeleteRank} />} />
-          <Route path='/ranks/:rankId/edit' element={<RankForm handleUpdateRank={handleUpdateRank}/>} />
-          <Route path='/ranks/:rankId/comments/:commentId/edit' element={<CommentForm handleUpdateComment={handleUpdateComment} />} />
-          <Route path='/:userId/ranks' element={<RankList ranks={ranks} />} />
-          </>
-
-        ) : (
-          <>
-          <Route path='/ranks' element={<RankList ranks={ranks} />} />
-          <Route path='/ranks/:rankId' element={<RankDetails handleDeleteRank={handleDeleteRank} />} />
-          <Route path='/sign-up' element={<SignUpForm />} />
-          <Route path='/sign-in' element={<SignInForm />} />
-          </>
-        )}
-
-      </Routes>
+    <MenuButton onClick={toggleNav} />
+    <NavBar/>
+      <main>
+        <Routes>
+          <Route path='/' element={user ? <RankList ranks={ranks}/> : <Landing ranks={ranks} />} />
+          {user ? (
+            <>
+            <Route path='/ranks' element={<RankList ranks={ranks} />} />
+            <Route path='/ranks/new' element={<RankForm handleAddRank={handleAddRank}  />} />
+            <Route path='/ranks/:rankId' element={<RankDetails handleDeleteRank={handleDeleteRank} />} />
+            <Route path='/ranks/:rankId/edit' element={<RankForm handleUpdateRank={handleUpdateRank}/>} />
+            <Route path='/ranks/:rankId/comments/:commentId/edit' element={<CommentForm handleUpdateComment={handleUpdateComment} />} />
+            <Route path='/:userId/ranks' element={<RankList ranks={ranks} />} />
+            </>
+  
+          ) : (
+            <>
+            <Route path='/ranks' element={<RankList ranks={ranks} />} />
+            <Route path='/ranks/:rankId' element={<RankDetails handleDeleteRank={handleDeleteRank} />} />
+            <Route path='/sign-up' element={<SignUpForm />} />
+            <Route path='/sign-in' element={<SignInForm />} />
+            </>
+          )}
+        </Routes>
+      </main>
     </>
   );
 };

@@ -16,8 +16,9 @@
 }
 
 .container img {
-  width: 50px;
+  width: 120px;
   margin-bottom: 28px;
+  align-self: center;
 }
 
 .container ul {

@@ -22,15 +22,6 @@ body {
   --border: #20232a;
 }
 
-#root {
-  height: 100%;
-}
-
-body {
-  overflow: auto;
-  padding-left: 240px;
-}
-
 article img {
   width: 80px;
 }
@@ -90,4 +81,74 @@ form {
 button,
 a {
   cursor: pointer;
+}
+
+body:not(.nav-closed) {
+  overflow: auto;
+}
+
+.menu-button {
+  position: fixed;
+  top: 15px;
+  z-index: 1001; /* Ensure it's above the navbar */
+  background: var(--card-background);
+  border: 1px solid var(--border);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 40px;
+  height: 40px;
+  transition: left 0.3s ease-in-out; /* Add transition for smooth movement */
+}
+
+.menu-button span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: white;
+  border-radius: 3px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* When nav is closed, button is at left: 15px */
+body.nav-closed .menu-button {
+  left: 15px;
+}
+
+/* When nav is open, button is at left: 255px (240px navbar width + 15px margin) */
+body:not(.nav-closed) .menu-button {
+  left: 255px;
+}
+
+body.nav-closed {
+  padding-left: 0;
+}
+
+body.nav-closed .navbar {
+  transform: translateX(-100%);
+}
+
+.navbar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 240px;
+  background-color: var(--background);
+  border-right: 1px solid var(--border);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+main {
+  padding-left: 240px;
+  transition: padding-left 0.3s ease-in-out;
+}
+
+body.nav-closed main {
+  padding-left: 0;
 }
