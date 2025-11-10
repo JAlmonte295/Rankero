@@ -2,6 +2,9 @@ import { useState, useContext } from 'react';
 import { Link, useMatch } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
 
+import styles from './RankList.module.css';
+
+
 const RankList = ({ ranks }) => {
   const { user } = useContext(UserContext);
   const [searchTerm, setSearchTerm] = useState('');
@@ -31,7 +34,7 @@ const RankList = ({ ranks }) => {
   );
 
   return (
-    <main>
+    <main className={styles.container}>
       <h1>{isMyRanksPage ? 'My Ranks' : 'Community Ranks'}</h1>
       <input
         type='text'

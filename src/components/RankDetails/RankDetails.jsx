@@ -4,6 +4,10 @@ import * as rankService from '../../services/rankService';
 import { UserContext } from '../../contexts/UserContext';
 import CommentForm from '../CommentForm/CommentForm';
 
+import styles from './RankDetails.module.css';
+
+
+
 
 const RankDetails = (props) => {
   const { user } = useContext(UserContext);
@@ -42,9 +46,7 @@ const RankDetails = (props) => {
   if (!rank) return <main>Loading...</main>;
 
   return (
-    <main>
-      <article>
-        
+    <main className={styles.container}>
         <header>
           <h2>{rank.category}</h2>
           <h1>{rank.title}</h1>
@@ -85,6 +87,7 @@ const RankDetails = (props) => {
         {(rank.comments || []).map((comment) => (
           <article key={comment._id}>
             <header>
+              <div>
               <h3>{comment.author.username}</h3>
               <p>{comment.createdAt}</p>
               {user && comment.author._id === user._id && (
@@ -95,12 +98,12 @@ const RankDetails = (props) => {
                 </button>
                 </>
               )}
+              </div>
             </header>
             <p>{comment.text}</p>
           </article>
         ))}
         </section>
-      </article>
     </main>
   );
 };

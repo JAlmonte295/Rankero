@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import * as rankService from '../../services/rankService';
 
+import style from './RankForm.module.css';
+
+
 const RankForm = (props) => {
     const { rankId } = useParams();
     console.log(rankId);
@@ -54,7 +57,7 @@ const RankForm = (props) => {
     }, [rankId]);
 
     return (
-        <main>
+        <main className={style.container}>
             <h1>{rankId ? 'Edit Rank' : 'New Rank'}</h1>
             <form onSubmit={handleSubmit}>
                 <label htmlFor='category-input'>Category</label>

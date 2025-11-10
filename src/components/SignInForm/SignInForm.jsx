@@ -5,6 +5,10 @@ import { signIn } from '../../services/authService';
 
 import { UserContext } from '../../contexts/UserContext';
 
+import styles from './SignInForm.module.css';
+
+
+
 const SignInForm = () => {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
@@ -31,10 +35,11 @@ const SignInForm = () => {
   };
 
   return (
-    <main>
-      <h1>Sign In</h1>
-      <p>{message}</p>
+    <main className={styles.container}>
+      <section>
       <form autoComplete='off' onSubmit={handleSubmit}>
+        <h1>Sign In</h1>
+      <p>{message}</p>
         <div>
           <label htmlFor='email'>Username:</label>
           <input
@@ -64,6 +69,7 @@ const SignInForm = () => {
           <button onClick={() => navigate('/')}>Cancel</button>
         </div>
       </form>
+      </section>
     </main>
   );
 };
