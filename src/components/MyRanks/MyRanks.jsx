@@ -7,7 +7,7 @@ const MyRanks = ({ allRanks }) => {
   const [myRanks, setMyRanks] = useState([]);
 
   useEffect(() => {
-    if (user && allRanks.length) {
+    if (user && allRanks?.length) {
       // Filter the ranks to only include those created by the current user
       const userRanks = allRanks.filter(rank => rank.author && rank.author._id === user._id);
       setMyRanks(userRanks);

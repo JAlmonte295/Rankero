@@ -71,8 +71,8 @@ const App = () => {
       const ranksData = await rankService.index();
       setRanks(ranksData);
     };
-    fetchAllRanks();
-  }, []);
+    if (user) fetchAllRanks();
+  }, [user]);
 
   useEffect(() => {
     if (isNavOpen) {
@@ -91,11 +91,10 @@ const App = () => {
           <Route path='/' element={user ? <HomePage ranks={ranks} /> : <Landing ranks={ranks} />} />
           {user ? (
             <>
-            <Route path='/ranks' element={<RankList ranks={ranks} />} />
             <Route path='/ranks/new' element={<RankForm handleAddRank={handleAddRank}  />} />
             <Route path='/ranks/:rankId' element={<RankDetails handleDeleteRank={handleDeleteRank} handleUpdateComment={handleUpdateComment} />} />
             <Route path='/ranks/:rankId/edit' element={<RankForm handleUpdateRank={handleUpdateRank} />} />
-            <Route path='/:userId/ranks' element={<MyRanks allRanks={ranks} />} />
+            <Route path='/my-ranks' element={<MyRanks allRanks={ranks} />} />
             </>
   
           ) : (

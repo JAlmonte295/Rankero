@@ -1,111 +1,156 @@
 import { useState, useEffect, useContext } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import * as rankService from '../../services/rankService';
 import { UserContext } from '../../contexts/UserContext';
-import CommentForm from '../CommentForm/CommentForm';
-
 import styles from './RankDetails.module.css';
+import CommentForm from '../CommentForm/CommentForm';
+import upvoteImage from '../../assets/images/thumbsUp.png';
+import downvoteImage from '../../assets/images/thumbsDown.png';
 
+const RankDetails = ({ handleDeleteRank, handleUpdateComment }) => {
+    const { rankId } = useParams();
+    const { user } = useContext(UserContext);
+    const [rank, setRank] = useState(null);
+    const navigate = useNavigate();
 
+    useEffect(() => {
+        const fetchRank = async () => {
+            try {
+                const rankData = await rankService.show(rankId);
+                setRank(rankData);
+            } catch (error) {
+                console.error("Failed to fetch rank:", error);
+                // Optionally navigate to a not-found page
+                // navigate('/not-found');
+            }
+        };
+        fetchRank();
+    }, [rankId]);
 
-
-const RankDetails = (props) => {
-  const { user } = useContext(UserContext);
-  const { rankId } = useParams();
-  const [rank, setRank] = useState(null);
-
-  useEffect(() => {
-    const fetchRank = async () => {
-      const rankData = await rankService.show(rankId);
-      setRank(rankData);
+    const handleVote = async (choiceId, vote) => {
+        if (!user) {
+            navigate('/sign-in');
+            return;
+        }
+        try {
+            const updatedRank = await rankService.voteOnChoice(rankId, choiceId, vote);
+            setRank(updatedRank);
+        } catch (error) {
+            console.error("Failed to vote:", error);
+        }
     };
-    fetchRank();
-  }, [rankId]);
 
-  const handleUpvote = async () => {
-    const updatedRank = await rankService.upvote(rankId);
-    setRank(updatedRank);
-  };
+    const handleAddComment = async (commentFormData) => {
+        if (!user) {
+            navigate('/sign-in');
+            return;
+        }
+        try {
+            const updatedRank = await rankService.addComment(rankId, commentFormData);
+            setRank(updatedRank);
+        } catch (error) {
+            console.error("Failed to add comment:", error);
+        }
+    };
 
-  const handleDownvote = async () => {
-    const updatedRank = await rankService.downvote(rankId);
-    setRank(updatedRank);
-  };
+    const handleDeleteComment = async (commentId) => {
+        try {
+            const updatedRank = await rankService.deleteComment(rankId, commentId);
+            setRank(updatedRank);
+        } catch (error) {
+            console.error("Failed to delete comment:", error);
+        }
+    };
 
-  const handleAddComment = async (commentData) => {
-    const updatedRank = await rankService.addComment(rankId, commentData);
-    setRank(updatedRank);
-  };
+    const handleRankVote = async (voteType) => {
+        if (!user) {
+            navigate('/sign-in');
+            return;
+        }
+        try {
+            let updatedRank;
+            if (voteType === 'up') {
+                updatedRank = await rankService.upvote(rankId);
+            } else {
+                updatedRank = await rankService.downvote(rankId);
+            }
+            setRank(updatedRank);
+        } catch (error) {
+            console.error(`Failed to ${voteType} rank:`, error);
+        }
+    };
 
-  const handleDeleteComment = async (rankId, commentId) => {
-    await rankService.deleteComment(rankId, commentId);
-    const rankData = await rankService.show(rankId);
-    setRank(rankData);
-  };
+    const isAuthor = user && rank && user._id === rank.author?._id;
 
-  if (!rank) return <main>Loading...</main>;
+    if (!rank) {
+        return <main className={styles.loading}>Loading...</main>;
+    }
 
-  return (
-    <main className={styles.container}>
-        <header>
-          <h2>{rank.category}</h2>
-          <h1>{rank.title}</h1>
-          {rank.description && <p>{rank.description}</p>}
-          {rank.author && <p>By {rank.author.username}</p>}
-        </header>
-        
-        <ol>
-          {rank.list.map((item) => (
-            <li key={item._id}>
-              {item.imageUrl && (
-                <img src={item.imageUrl} alt={item.itemName} style={{ width: '100%', height: 'auto', objectFit: 'cover' }} />
-              )}
-              {item.itemName}
-            </li>
-          ))}
-        </ol>
-        {user && rank.author._id === user._id && (
-          <>
-          <Link to={`/ranks/${rankId}/edit`}>Edit</Link>
-          <button onClick={() => props.handleDeleteRank(rankId)}>
-            Delete
-            </button>
-          </>
-        )}
-        
-        <section>
-          <button onClick={handleUpvote} disabled={!user || (rank.upvotes || []).includes(user._id)}>👍</button>
-          <span>{(rank.upvotes || []).length}</span>
-          <button onClick={handleDownvote} disabled={!user || (rank.downvotes || []).includes(user._id)}>👎</button>
-          <span>{(rank.downvotes || []).length}</span>
-        </section>
-        <section>
-        
-        <h2>Comments</h2>
-        {user && <CommentForm handleAddComment={handleAddComment} />}
-        {!(rank.comments || []).length && <p>No comments yet</p>}
-        {(rank.comments || []).map((comment) => (
-          <article key={comment._id}>
-            <header>
-              <div>
-              <h3>{comment.author.username}</h3>
-              <p>{comment.createdAt}</p>
-              {user && comment.author._id === user._id && (
-                <>
-                <Link to={`/ranks/${rankId}/comments/${comment._id}/edit`} state={{ commentText: comment.text }}>Edit</Link>
-                <button onClick={() => handleDeleteComment(rankId, comment._id)}>
-                  Delete
-                </button>
-                </>
-              )}
-              </div>
-            </header>
-            <p>{comment.text}</p>
-          </article>
-        ))}
-        </section>
-    </main>
-  );
+    return (
+        <main className={styles.container}>
+            <div className={styles.rankHeader}>
+                <h1>{rank.title}</h1>
+                <p className={styles.description}>{rank.description}</p>
+                <p className={styles.author}>
+                    Created by: <span>{rank.author?.username || 'Unknown'}</span>
+                </p>
+                <div className={styles.rankVotingContainer}>
+                    <button onClick={() => handleRankVote('up')} className={styles.rankVoteButton}><img src={upvoteImage} alt="Upvote" /></button>
+                    <span className={styles.rankScore}>{rank.score || 0}</span>
+                    <button onClick={() => handleRankVote('down')} className={styles.rankVoteButton}><img src={downvoteImage} alt="Downvote" /></button>
+                </div>
+            </div>
+
+            <div className={styles.listContainer}>
+                <div className={styles.listHeader}>
+                    <h2>The List</h2>
+                    {isAuthor && (
+                        <div className={styles.authorActions}>
+                            <Link to={`/ranks/${rank._id}/edit`} className={styles.editButton}>Edit</Link>
+                            <button onClick={() => handleDeleteRank(rank._id)} className={styles.deleteButton}>Delete</button>
+                        </div>
+                    )}
+                </div>
+                {rank.list?.map((choice, index) => (
+                    <div
+                        key={choice._id || index}
+                        className={styles.choiceBanner}
+                        style={{ backgroundImage: choice.imageUrl ? `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${choice.imageUrl})` : '' }}
+                    >
+                        <span className={styles.rankPosition}>#{index + 1}</span>
+                        <h3 className={styles.choiceName}>{choice.itemName}</h3>
+                        <div className={styles.votingContainer}>
+                            <button onClick={() => handleVote(choice._id, 'up')} className={styles.voteButton}>👍</button>
+                            <span className={styles.score}>{choice.score || 0}</span>
+                            <button onClick={() => handleVote(choice._id, 'down')} className={styles.voteButton}>👎</button>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {/* Placeholder for comments section */}
+            <div className={styles.commentsSection}>
+                <h2>Comments</h2>
+                {user && <CommentForm handleAddComment={handleAddComment} />}
+                <div className={styles.commentsList}>
+                    {rank.comments?.length ? (
+                        rank.comments.map(comment => (
+                            <div key={comment._id} className={styles.comment}>
+                                <p className={styles.commentAuthor}>{comment.author?.username || 'Anonymous'}</p>
+                                <p>{comment.text}</p>
+                                {user?._id === comment.author?._id && (
+                                    <button onClick={() => handleDeleteComment(comment._id)} className={styles.deleteCommentButton}>Delete</button>
+                                )}
+                            </div>
+                        ))
+                    ) : (
+                        <p>No comments yet.</p>
+                    )}
+                </div>
+                <p>No comments yet.</p>
+            </div>
+        </main>
+    );
 };
 
 export default RankDetails;

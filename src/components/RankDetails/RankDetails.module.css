@@ -1,145 +1,229 @@
-/* src/components/HootDetails/HootDetails.module.css */
-
-/* Details and comments */
-
 .container {
-  height: 100%;
-  display: flex;
-  overflow: scroll;
-  align-items: center;
-  flex-direction: column;
-  background-color: var(--card-background);
-}
-
-.container > section {
-  width: 100%;
-  padding: 21px;
-  display: flex;
-  max-width: 700px;
-  flex-direction: column;
-}
-
-.container section article {
-  padding: 0;
-  width: 100%;
-  min-height: 140px;
-  margin: 4px 0px 14px;
-}
-
-.container header div {
-  width: 100%;
-  display: flex;
-  margin-top: 10px;
-  align-items: center;
-}
-
-.container header {
-  display: flex;
-  margin-bottom: 21px;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.container h1 {
-  margin: 0 0 7px 0;
-}
-
-.container header > p {
-  margin: 0;
-  opacity: 1;
-  font-weight: 600;
-  color: var(--primary);
-  margin: 7px 0px 14px 0px;
-}
-
-.container header button,
-.container header a {
-  width: 30px;
-  height: 30px;
-
-  font-size: 14px;
-  font-weight: 500;
-
-  background: none;
-  border-radius: 50%;
-  border: 1px solid var(--border);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 5px;
-  margin: 0 0 0 7px;
-}
-
-/* Button icon styling */
-/* This styling will be used when we add in our reusable icon component */
-
-.container header button img,
-.container header a img {
-  width: 24px;
-  height: 24px;
-  opacity: 0.25;
-}
-
-.container header button:hover,
-.container header a:hover {
-  background-color: var(--border);
-}
-
-.container header button:hover img,
-.container header a:hover img {
-  filter: invert(1);
-  opacity: 1;
-}
-
-.container header button:active {
-  background-color: var(--danger);
-}
-
-/* Comment form styling */
-
-.container form {
-  padding: 0;
-  display: flex;
-  border: none;
-  max-width: 100%;
-  box-shadow: none;
-  flex-direction: row;
-  align-items: center;
-  -moz-box-shadow: none;
-  -webkit-box-shadow: none;
-}
-
-.container form input,
-.container form textarea {
-  width: 100%;
-  padding: 14px;
-  font-size: 14px;
-  resize: vertical;
-  border-radius: 5px;
-  margin: 14px 0px 14px 0px;
-  border: 1px solid var(--border);
-}
-
-.container form textarea {
-  min-height: 50px;
-}
-
-.container form button {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
   color: white;
-  font-weight: 600;
-  background: var(--primary);
-  width: 40px;
-  height: 40px;
-  margin: 0 0 0 14px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-.container form button img {
-  width: 25px;
-  height: 25px;
+.loading {
+  text-align: center;
+  font-size: 1.5em;
+  padding: 50px;
+  color: white;
+}
+
+.rankHeader {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 30px;
+  background-color: var(--card-background);
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.rankHeader h1 {
+  font-size: 3em;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.description {
+  font-size: 1.1em;
+  color: #ccc;
+  line-height: 1.6;
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 20px;
+}
+
+.author {
+  text-align: center;
+  font-style: italic;
+  color: #aaa;
+}
+
+.author span {
+  font-weight: bold;
+  color: var(--primary);
+}
+
+.authorActions {
+  display: flex;
+  gap: 15px;
+}
+
+.rankVotingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.rankVoteButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.2s ease-in-out;
+}
+
+.rankVoteButton:hover {
+  transform: scale(1.1);
+}
+
+.rankVoteButton img {
+  width: 40px; /* Adjust size as needed */
+  height: 40px;
+}
+
+.rankScore {
+  font-size: 2em;
+  font-weight: bold;
+  color: var(--accent);
+}
+
+.editButton, .deleteButton {
+  padding: 10px 25px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.editButton {
+  background-color: var(--accent);
+  color: var(--background);
+}
+
+.deleteButton {
+  background-color: var(--danger);
+  color: white;
+}
+
+.editButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.deleteButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.listContainer {
+  margin-top: 40px;
+}
+
+.listHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.listHeader h2 {
+  font-size: 2em;
+  color: var(--primary);
+  margin: 0; /* Remove default margin */
+}
+
+.choiceBanner {
+  background-color: var(--card-background);
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Pushes voting to the right */
+  gap: 25px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  border-left: 5px solid var(--accent);
+  transition: transform 0.3s ease-in-out, background-image 0.3s ease-in-out;
+}
+
+.choiceBanner:hover {
+  transform: scale(1.03);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), var(--bg-image, none);
+}
+
+.rankPosition {
+  font-size: 2.5em;
+  font-weight: bold;
+  color: var(--accent);
+}
+
+.choiceName {
+  font-size: 2em;
+  margin: 0;
+  color: white;
+  flex-grow: 1; /* Allows the name to take up available space */
+}
+
+.votingContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 5px 10px;
+  border-radius: 20px;
+}
+
+.voteButton {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.voteButton:hover {
+  transform: scale(1.2);
+}
+
+.score {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.commentsSection {
+  margin-top: 50px;
+  padding: 20px;
+  background-color: var(--card-background);
+  border-radius: 10px;
+}
+
+.commentsList {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.comment {
+  background-color: var(--background);
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 3px solid var(--accent);
+  position: relative;
+}
+
+.commentAuthor {
+  font-weight: bold;
+  color: var(--primary);
+  margin-bottom: 5px;
+}
+
+.deleteCommentButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #aaa;
+  cursor: pointer;
 }

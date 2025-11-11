@@ -14,6 +14,10 @@ const create = async (rankFormData) => {
     return sendRequest(BASE_URL, 'POST', rankFormData);
 };
 
+const voteOnChoice = async (rankId, choiceId, vote) => {
+    return sendRequest(`${BASE_URL}/${rankId}/choices/${choiceId}/vote`, 'POST', { vote });
+};
+
 const upvote = async (rankId) => {
     return sendRequest(`${BASE_URL}/${rankId}/upvote`, 'POST');
 };
@@ -47,6 +51,7 @@ export {
     index,
     show,
     create,
+    voteOnChoice,
     upvote,
     downvote,
     createComment as addComment,
