@@ -55,7 +55,7 @@
 
 .author span {
   font-weight: bold;
-  color: var(--primary);
+  color: var(--accent);
 }
 
 .authorActions {
@@ -137,7 +137,7 @@
 
 .listHeader h2 {
   font-size: 2em;
-  color: var(--primary);
+  color: white;
   margin: 0; /* Remove default margin */
 }
 
@@ -225,7 +225,7 @@
 
 .commentAuthor {
   font-weight: bold;
-  color: var(--primary);
+  color: var(--accent);
   margin-bottom: 5px;
 }
 

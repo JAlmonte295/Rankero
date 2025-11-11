@@ -28,9 +28,9 @@ body {
   --aquamarine: #03fcba;
 
   --danger: #dc3545;
-  --background: #111827; /* A slightly darker, neutral gray-blue */
-  --card-background: #1F2937; /* A lighter gray-blue for cards */
-  --border: #374151; /* A subtle border color */
+  --background: #181A1B; /* A very dark, slightly warm gray */
+  --card-background: #25282A; /* A lighter gray for cards */
+  --border: #33373A; /* A subtle border color */
 }
 
 article img {
@@ -39,7 +39,7 @@ article img {
 
 h1,
 h3 {
-  color: var(--primary);
+  color: white;
   margin: 7px 0px 14px 0px;
 }
 
