@@ -10,7 +10,7 @@ const RankForm = (props) => {
         category: 'Games',
         title: '',
         description: '',
-        list: [{ itemName: '', imageUrl: '' }], // Start with one empty item
+        list: [{ id: Date.now(), itemName: '', imageUrl: '' }], // Start with one empty item with a unique id
 
     });
     const handleChange = (evt) => {
@@ -26,7 +26,7 @@ const RankForm = (props) => {
     };
 
     const handleAddListItem = () => {
-        setFormData({ ...formData, list: [...formData.list, { itemName: '', imageUrl: '' }] });
+        setFormData({ ...formData, list: [...formData.list, { id: Date.now(), itemName: '', imageUrl: '' }] });
     };
 
     const handleRemoveListItem = (index) => {
@@ -48,10 +48,15 @@ const RankForm = (props) => {
     useEffect(() => {
         const fetchRank = async () => {
             const rankData = await rankService.show(rankId);
-            setFormData(rankData);
+            // Ensure all list items have a unique ID for React's key prop
+            const listWithIds = rankData.list.map((item, index) => ({
+                ...item,
+                // Use existing _id or generate a temporary one
+                id: item._id || Date.now() + index,
+            }));
+            setFormData({ ...rankData, list: listWithIds });
         };
         if (rankId) fetchRank();
-        return () => setFormData({ category: 'Games', title: '', description: '', list: [{ itemName: '', imageUrl: '' }] })
     }, [rankId]);
 
     return (
@@ -96,7 +101,7 @@ const RankForm = (props) => {
                 <div className={styles.listItemsContainer}>
                     <label>List Items</label>
                     {formData.list.map((item, index) => (
-                        <div key={index} className={styles.listItem}>
+                        <div key={item.id || index} className={styles.listItem}>
                             <input
                                 required
                                 type='text'

@@ -55,15 +55,31 @@
   gap: 10px;
 }
 
+.listItem input {
+  /* Override the global form input width to allow flex to work */
+  width: auto;
+}
+
 .listItem input[name="itemName"] {
-  flex: 2; /* Give more space to the item name */
+  flex-grow: 1; /* Allow this input to grow */
 }
 
 .listItem input[name="imageUrl"] {
-  flex: 3; /* And the image URL */
+  flex-grow: 1; /* Allow this input to grow */
 }
 
-.removeButton, .addButton {
+.removeButton {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.2em;
+  background-color: var(--danger);
+  color: white;
+}
+
+.addButton {
   padding: 10px 15px;
   border: none;
   border-radius: 5px;
@@ -71,14 +87,6 @@
   font-weight: bold;
   font-size: 1.2em;
   transition: background-color 0.2s, transform 0.2s;
-}
-
-.removeButton {
-  background-color: var(--danger);
-  color: white;
-}
-
-.addButton {
   background-color: #28a745; /* A nice green for adding */
   color: white;
   align-self: flex-start; /* Align to the left */
