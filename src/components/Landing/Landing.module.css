@@ -14,13 +14,13 @@
 .hero h1 {
   font-size: 3.5em;
   margin-bottom: 15px;
-  color: var(--primary);
+  color: white;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .hero p {
   font-size: 1.2em;
-  color: #ccc;
+  color: white;
   max-width: 600px;
   margin-bottom: 30px;
   line-height: 1.6;

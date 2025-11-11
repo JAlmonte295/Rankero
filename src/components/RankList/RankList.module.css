@@ -68,7 +68,7 @@
 
 .rankCategory {
   background-color: var(--primary);
-  color: var(--background);
+  color: white;
   padding: 4px 12px;
   border-radius: 15px;
   font-size: 0.8em;

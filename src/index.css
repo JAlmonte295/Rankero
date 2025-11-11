@@ -9,17 +9,28 @@ body {
   margin: 0;
   height: 100%;
   overflow: hidden;
-  background-color: #282c34;
+  /* The linear-gradient creates a semi-transparent overlay on top of the image. */
+  background-image: linear-gradient(rgba(172, 180, 140, 0.274), rgba(17, 24, 39, 0.95)), url(./assets/images/background.png);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: sans-serif;
 
-  --primary: #61dafb;
-  --accent: #ffc107;
+  /* New Color Palette */
+  --primary: #cbbaed; /* periwinkle */
+  --accent: #e9df00; /* aureolin */
+  --tangelo: #fb5012;
+  --fluorescent-cyan: #01fdf6;
+  --periwinkle: #cbbaed;
+  --aureolin: #e9df00;
+  --aquamarine: #03fcba;
+
   --danger: #dc3545;
-  --background: #282c34;
-  --card-background: #3a3f4b;
-  --border: #20232a;
+  --background: #111827; /* A slightly darker, neutral gray-blue */
+  --card-background: #1F2937; /* A lighter gray-blue for cards */
+  --border: #374151; /* A subtle border color */
 }
 
 article img {

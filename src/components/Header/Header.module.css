@@ -7,9 +7,23 @@
   display: flex;
   align-items: center;
   justify-content: flex-start; /* Align items to the left */
-  background-color: var(--background);
+  background: linear-gradient(90deg, #ff7e5f, #feb47b, #ffc371, #f5d020, #cbbaed, #8e9eab, #01fdf6, #03fcba);
+  background-size: 400% auto;
   border-bottom: 1px solid var(--border);
   z-index: 1000; /* Ensure it's above the navbar */
   padding: 0 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  animation: gradient-animation 15s ease infinite;
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }

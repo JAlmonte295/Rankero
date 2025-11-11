@@ -10,9 +10,21 @@
   position: fixed;
   padding: 28px 21px;
   align-items: flex-start;
-  background: var(--card-background);
+  background: var(--background);
   flex-direction: column;
   border-right: 1px solid var(--border);
+}
+
+@keyframes gradient-animation-vertical {
+  0% {
+    background-position: 50% 0%;
+  }
+  50% {
+    background-position: 50% 100%;
+  }
+  100% {
+    background-position: 50% 0%;
+  }
 }
 
 .container img {
