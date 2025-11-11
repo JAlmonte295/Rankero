@@ -1,19 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './RankList.module.css';
-
-// Helper function to generate a consistent color from a string
-const getCategoryColor = (category) => {
-  if (!category) {
-    return '#555'; // Default color for uncategorized
-  }
-  let hash = 0;
-  for (let i = 0; i < category.length; i++) {
-    hash = category.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  const h = hash % 360;
-  return `hsl(${h}, 70%, 40%)`;
-};
+import { getCategoryColor } from '../../utils/colorUtils';
 
 const RankList = ({ ranks, onBack, initialSearchTerm = '' }) => {
   const [searchTerm, setSearchTerm] = useState(initialSearchTerm);

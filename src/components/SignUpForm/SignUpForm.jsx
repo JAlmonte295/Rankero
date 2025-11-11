@@ -8,37 +8,44 @@ import PageHeader from '../PageHeader/PageHeader';
 const SignUpForm = () => {
 
   useEffect(() => {
-    document.title = 'Sign Up';
+    document.title = 'Rankero - Sign Up';
   }, []);
 
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
     password: '',
+    passwordConf: '',
   });
+  const [error, setError] = useState('');
   const { setUser } = useContext(UserContext);
 
   const handleChange = (e) => {
+    setError('');
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (formData.password !== formData.passwordConf) {
+      setError('Passwords do not match');
+      return;
+    }
     try {
       await authService.signUp(formData);
       const user = await authService.signIn(formData);
       setUser(user);
       navigate('/my-ranks');
     } catch (err) {
-      console.error(err);
-      // You can add error handling here, e.g., displaying a message to the user
+      setError(err.message || 'An error occurred during sign up.');
     }
   };
 
   return (
-    <main className={styles.container}>
+    <div className={styles.container}>
       <form onSubmit={handleSubmit} className={styles.form}>
         <PageHeader title="Sign Up" />
+        {error && <p className={styles.error}>{error}</p>}
         <label htmlFor="username-input">Username</label>
         <input
           type="text"
@@ -57,9 +64,18 @@ const SignUpForm = () => {
           onChange={handleChange}
           required
         />
+        <label htmlFor="passwordConf-input">Confirm Password</label>
+        <input
+          type="password"
+          id="passwordConf-input"
+          name="passwordConf"
+          value={formData.passwordConf}
+          onChange={handleChange}
+          required
+        />
         <button type="submit" className={styles.submitButton}>Sign Up</button>
       </form>
-    </main>
+    </div>
   );
 };
 

@@ -11,6 +11,7 @@ import HomePage from './components/HomePage/HomePage';
 import MyRanks from './components/MyRanks/MyRanks';
 import RankDetails from './components/RankDetails/RankDetails';
 import RankForm from './components/RankForm/RankForm';
+import './App.css';
 
 import { UserContext } from './contexts/UserContext';
 
@@ -73,7 +74,7 @@ const App = () => {
     <>
       <Header toggleNav={toggleNav} />
       <NavBar/>
-      <main>
+      <main className={`app-main-content ${isNavOpen ? '' : 'nav-closed'}`}>
       <Routes>
         <Route path='/' element={user ? <HomePage ranks={ranks} /> : <Landing ranks={ranks} />} />
         {user ? (

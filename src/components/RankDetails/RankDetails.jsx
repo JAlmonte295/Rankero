@@ -27,9 +27,7 @@ const RankDetails = ({ handleDeleteRank, handleUpdateComment, handleUpdateSingle
                 const rankData = await rankService.show(rankId);
                 setRank(rankData);
             } catch (error) {
-                console.error("Failed to fetch rank:", error);
-                // Optionally navigate to a not-found page
-                // navigate('/not-found');
+                // Handle or log error appropriately
             }
         };
         fetchRank();
@@ -45,7 +43,7 @@ const RankDetails = ({ handleDeleteRank, handleUpdateComment, handleUpdateSingle
             setRank(updatedRank);
             handleUpdateSingleRank(updatedRank); // Update the global state
         } catch (error) {
-            console.error("Failed to vote:", error);
+            // Handle or log error appropriately
         }
     };
 
@@ -60,7 +58,7 @@ const RankDetails = ({ handleDeleteRank, handleUpdateComment, handleUpdateSingle
             handleUpdateSingleRank(updatedRank); // Update the global state
             setIsCommentFormVisible(false); // Hide form after submission
         } catch (error) {
-            console.error("Failed to add comment:", error);
+            // Handle or log error appropriately
         }
     };
 
@@ -70,7 +68,7 @@ const RankDetails = ({ handleDeleteRank, handleUpdateComment, handleUpdateSingle
             setRank(updatedRank);
             handleUpdateSingleRank(updatedRank); // Update the global state
         } catch (error) {
-            console.error("Failed to delete comment:", error);
+            // Handle or log error appropriately
         }
     };
 
@@ -89,7 +87,7 @@ const RankDetails = ({ handleDeleteRank, handleUpdateComment, handleUpdateSingle
             setRank(updatedRank);
             handleUpdateSingleRank(updatedRank); // Update the global state
         } catch (error) {
-            console.error(`Failed to ${voteType} rank:`, error);
+            // Handle or log error appropriately
         }
     };
 
@@ -101,11 +99,11 @@ const RankDetails = ({ handleDeleteRank, handleUpdateComment, handleUpdateSingle
     };
 
     if (!rank) {
-        return <main className={styles.loading}>Loading...</main>;
+        return <div className={styles.loading}>Loading...</div>;
     }
 
     return (
-        <main className={styles.container}>
+        <div className={styles.container}>
             <button onClick={handleBack} className={styles.backButton}>
                 &larr; Back
             </button>
@@ -148,7 +146,6 @@ const RankDetails = ({ handleDeleteRank, handleUpdateComment, handleUpdateSingle
                 ))}
             </div>
 
-            {/* Placeholder for comments section */}
             <div className={styles.commentsSection}>
                 <h2>Comments</h2>
                 <div className={styles.commentsList}>
@@ -178,7 +175,7 @@ const RankDetails = ({ handleDeleteRank, handleUpdateComment, handleUpdateSingle
                     )
                 )}
             </div>
-        </main>
+        </div>
     );
 };
 

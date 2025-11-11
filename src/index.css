@@ -19,8 +19,8 @@ body {
   font-family: sans-serif;
 
   /* New Color Palette */
-  --primary: #cbbaed; /* periwinkle */
-  --accent: #e9df00; /* aureolin */
+  --primary: #d4b700; /* A darker, richer yellow for hover states */
+  --accent: #F8D210; /* A brighter, more accessible yellow */
   --tangelo: #fb5012;
   --fluorescent-cyan: #01fdf6;
   --periwinkle: #cbbaed;
@@ -141,15 +141,4 @@ body.nav-closed .navbar {
   border-right: 1px solid var(--border);
   transition: transform 0.3s ease-in-out;
   z-index: 999; /* Below header, above main content */
-}
-
-main {
-  padding-top: 60px; /* Add padding for the fixed header */
-  padding-left: 240px; /* Keep existing padding */
-  height: 100vh;
-  transition: padding-left 0.3s ease-in-out;
-}
-
-body.nav-closed main {
-  padding-left: 0;
 }

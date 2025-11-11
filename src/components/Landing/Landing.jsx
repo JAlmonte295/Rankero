@@ -1,24 +1,19 @@
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import styles from './Landing.module.css';
-
-// Helper function to generate a consistent color from a string
-const getCategoryColor = (category) => {
-  if (!category) return '#555';
-  let hash = 0;
-  for (let i = 0; i < category.length; i++) {
-    hash = category.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  const h = hash % 360;
-  return `hsl(${h}, 50%, 45%)`;
-};
+import { getCategoryColor } from '../../utils/colorUtils';
 
 const Landing = ({ ranks }) => {
+  useEffect(() => {
+    document.title = 'Rankero';
+  }, []);
+
   // Showcase top 3 ranks by score and creation date
   const trendingRanks = ranks ? [...ranks].sort((a, b) => (b.score || 0) - (a.score || 0)).slice(0, 3) : [];
   const newestRanks = ranks ? [...ranks].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 3) : [];
 
   return (
-    <main className={styles.container}>
+    <div className={styles.container}>
       <section className={styles.hero}>
         <h1>Welcome to Rankero!</h1>
         <p>Create, share, and discover ranked lists on any topic you can imagine.</p>
@@ -55,7 +50,7 @@ const Landing = ({ ranks }) => {
           </div>
         </section>
       )}
-    </main>
+    </div>
   );
 };
 

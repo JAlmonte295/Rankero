@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import * as rankService from '../../services/rankService';
 import styles from './RankForm.module.css';
+import PageHeader from '../PageHeader/PageHeader';
 
 
 const RankForm = (props) => {
@@ -47,6 +48,10 @@ const RankForm = (props) => {
     };
 
     useEffect(() => {
+        document.title = rankId ? 'Edit Rank' : 'New Rank';
+    }, [rankId]);
+
+    useEffect(() => {
         const fetchRank = async () => {
             const rankData = await rankService.show(rankId);
             // Ensure all list items have a unique ID for React's key prop
@@ -61,10 +66,10 @@ const RankForm = (props) => {
     }, [rankId]);
 
     return (
-        <main className={styles.container}>
+        <div className={styles.container}>
             <button type="button" onClick={() => navigate(-1)} className={styles.backButton}>&larr; Back</button>
             <form onSubmit={handleSubmit} className={styles.form}>
-                <h1>{rankId ? 'Edit Rank' : 'New Rank'}</h1>
+                <PageHeader title={rankId ? 'Edit Rank' : 'New Rank'} />
                 <label htmlFor='category-input'>Category</label>
                 <select
                     required
@@ -130,7 +135,7 @@ const RankForm = (props) => {
                     <button type='submit' className={styles.submitButton}>Submit</button>
                 </div>
             </form>
-        </main>
+        </div>
     );
 };
 
