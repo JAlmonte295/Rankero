@@ -1,6 +1,7 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import RankList from '../RankList/RankList';
 import { Link } from 'react-router-dom';
+import PageHeader from '../PageHeader/PageHeader';
 import CategoryGrid from '../CategoryGrid/CategoryGrid';
 import styles from './HomePage.module.css';
 
@@ -8,6 +9,10 @@ const HomePage = ({ ranks }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   
+  useEffect(() => {
+    document.title = 'Explore Ranks';
+  }, []);
+
   // Memoize the extraction of unique categories to avoid recalculating on every render
   const categories = useMemo(() => {
     const categorySet = new Set(ranks.map(rank => rank.category || 'Uncategorized'));
@@ -43,8 +48,8 @@ const HomePage = ({ ranks }) => {
 
   return (
     <div className={styles.homePage}>
+      <PageHeader title="Explore Ranks" />
       <div className={styles.header}>
-        <h2>Explore Categories or Search Directly</h2>
         <input
           type="text"
           placeholder="Search all ranks..."

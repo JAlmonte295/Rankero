@@ -12,19 +12,30 @@
   color: white;
 }
 
-.rankHeader {
+.backButton {
+  background-color: var(--accent);
+  color: var(--background);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: all 0.2s ease-in-out;
+}
+
+.backButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.rankMeta {
   text-align: center;
   margin-bottom: 40px;
   padding: 30px;
   background-color: var(--card-background);
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.rankHeader h1 {
-  font-size: 3em;
-  text-align: center;
-  margin-bottom: 15px;
 }
 
 .description {

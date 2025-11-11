@@ -21,14 +21,14 @@ const NavBar = () => {
       </Link>
       {user ? (
         <ul>
-          <li><Link to='/'>Ranks</Link></li>
-          <li><Link to='/ranks/new'>New Rank</Link></li>
+          <li><Link to='/'>Explore Ranks</Link></li>
+          <li><Link to='/ranks/new'>Create a Rank</Link></li>
           <li><Link to='/my-ranks'>My Ranks</Link></li>
           <li><Link to='/' onClick={handleSignOut}>Sign Out</Link></li>
         </ul>
       ) : (
         <ul>
-          <li><Link to='/'>Homepage</Link></li>
+          <li><Link to='/'>Explore Ranks</Link></li>
           <li><Link to='/sign-in'>Sign In</Link></li>
           <li><Link to='/sign-up'>Sign Up</Link></li>
         </ul>

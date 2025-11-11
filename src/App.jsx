@@ -29,7 +29,7 @@ const App = () => {
   const handleDeleteRank = async (rankId) => {
     const deletedRank = await rankService.deleteRank(rankId);
     setRanks(ranks.filter((rank) => rank._id !== deletedRank._id));
-    navigate('/');
+    navigate('/my-ranks');
   };
 
   const handleUpdateRank = async (rankId, rankFormData) => {

@@ -1,15 +1,22 @@
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as authService from '../../services/authService';
-import styles from './SignUpForm.module.css';
+import styles from '../Form/Form.module.css';
+import { UserContext } from '../../contexts/UserContext';
+import PageHeader from '../PageHeader/PageHeader';
 
 const SignUpForm = () => {
+
+  useEffect(() => {
+    document.title = 'Sign Up';
+  }, []);
+
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
-    email: '',
     password: '',
   });
+  const { setUser } = useContext(UserContext);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -19,7 +26,9 @@ const SignUpForm = () => {
     e.preventDefault();
     try {
       await authService.signUp(formData);
-      navigate('/sign-in');
+      const user = await authService.signIn(formData);
+      setUser(user);
+      navigate('/my-ranks');
     } catch (err) {
       console.error(err);
       // You can add error handling here, e.g., displaying a message to the user
@@ -29,7 +38,7 @@ const SignUpForm = () => {
   return (
     <main className={styles.container}>
       <form onSubmit={handleSubmit} className={styles.form}>
-        <h1>Sign Up</h1>
+        <PageHeader title="Sign Up" />
         <label htmlFor="username-input">Username</label>
         <input
           type="text"
@@ -39,8 +48,6 @@ const SignUpForm = () => {
           onChange={handleChange}
           required
         />
-        <label htmlFor="email-input">Email</label>
-        <input type="email" id="email-input" name="email" value={formData.email} onChange={handleChange} required />
         <label htmlFor="password-input">Password</label>
         <input
           type="password"

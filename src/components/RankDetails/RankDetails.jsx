@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import * as rankService from '../../services/rankService';
+import PageHeader from '../PageHeader/PageHeader';
 import { UserContext } from '../../contexts/UserContext';
 import styles from './RankDetails.module.css';
 import CommentForm from '../CommentForm/CommentForm';
@@ -12,6 +13,12 @@ const RankDetails = ({ handleDeleteRank, handleUpdateComment }) => {
     const { user } = useContext(UserContext);
     const [rank, setRank] = useState(null);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (rank) {
+            document.title = rank.title;
+        }
+    }, [rank]);
 
     useEffect(() => {
         const fetchRank = async () => {
@@ -82,15 +89,22 @@ const RankDetails = ({ handleDeleteRank, handleUpdateComment }) => {
 
     const isAuthor = user && rank && user._id === rank.author?._id;
 
+    const handleBack = () => {
+        // If the user is the author, go to My Ranks, otherwise go back in history
+        isAuthor ? navigate('/my-ranks') : navigate(-1);
+    };
+
     if (!rank) {
         return <main className={styles.loading}>Loading...</main>;
     }
 
     return (
         <main className={styles.container}>
-            <div className={styles.rankHeader}>
-                <h1>{rank.title}</h1>
-                <p className={styles.description}>{rank.description}</p>
+            <button onClick={handleBack} className={styles.backButton}>
+                &larr; Back
+            </button>
+            <PageHeader title={rank.title} />
+            <div className={styles.rankMeta}>                <p className={styles.description}>{rank.description}</p>
                 <p className={styles.author}>
                     Created by: <span>{rank.author?.username || 'Unknown'}</span>
                 </p>

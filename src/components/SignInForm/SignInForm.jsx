@@ -1,8 +1,9 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as authService from '../../services/authService';
 import { UserContext } from '../../contexts/UserContext';
-import styles from './SignInForm.module.css';
+import styles from '../Form/Form.module.css';
+import PageHeader from '../PageHeader/PageHeader';
 
 const SignInForm = () => {
   const navigate = useNavigate();
@@ -11,6 +12,10 @@ const SignInForm = () => {
     username: '',
     password: '',
   });
+
+  useEffect(() => {
+    document.title = 'Sign In';
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -31,7 +36,7 @@ const SignInForm = () => {
   return (
     <main className={styles.container}>
       <form onSubmit={handleSubmit} className={styles.form}>
-        <h1>Sign In</h1>
+        <PageHeader title="Sign In" />
         <label htmlFor="username-input">Username</label>
         <input
           type="text"
