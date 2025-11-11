@@ -7,11 +7,23 @@ import styles from './HomePage.module.css';
 
 const HomePage = ({ ranks }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [inputValue, setInputValue] = useState('');
+  const [searchTerm, setSearchTerm] = useState(''); // This will be debounced
   
   useEffect(() => {
     document.title = 'Explore Ranks';
   }, []);
+
+  // Debounce effect to delay searching
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSearchTerm(inputValue);
+    }, 500); // 500ms delay
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [inputValue, ranks]); // Re-run if inputValue or ranks change
 
   // Memoize the extraction of unique categories to avoid recalculating on every render
   const categories = useMemo(() => {
@@ -27,11 +39,7 @@ const HomePage = ({ ranks }) => {
     return ranks.filter(rank => (rank.category || 'Uncategorized') === selectedCategory);
   }, [ranks, selectedCategory]);
 
-  const handleSearch = (e) => {
-    if (e.key === 'Enter' && e.target.value) {
-      setSearchTerm(e.target.value);
-    }
-  };
+  const handleSearchChange = (e) => setInputValue(e.target.value);
 
   if (selectedCategory) {
     return (
@@ -42,7 +50,10 @@ const HomePage = ({ ranks }) => {
   
   if (searchTerm) {
     return (
-      <RankList ranks={ranks} initialSearchTerm={searchTerm} onBack={() => setSearchTerm('')} />
+      <RankList ranks={ranks} initialSearchTerm={searchTerm} onBack={() => {
+        setInputValue('');
+        setSearchTerm('');
+      }} />
     );
   }
 
@@ -54,7 +65,8 @@ const HomePage = ({ ranks }) => {
           type="text"
           placeholder="Search all ranks..."
           className={styles.searchBar}
-          onKeyDown={handleSearch}
+          value={inputValue}
+          onChange={handleSearchChange}
         />
       </div>
       <CategoryGrid categories={categories} onCategorySelect={setSelectedCategory} />

@@ -8,11 +8,12 @@ import CommentForm from '../CommentForm/CommentForm';
 import upvoteImage from '../../assets/images/thumbsUp.png';
 import downvoteImage from '../../assets/images/thumbsDown.png';
 
-const RankDetails = ({ handleDeleteRank, handleUpdateComment }) => {
+const RankDetails = ({ handleDeleteRank, handleUpdateComment, handleUpdateSingleRank }) => {
     const { rankId } = useParams();
     const { user } = useContext(UserContext);
     const [rank, setRank] = useState(null);
     const navigate = useNavigate();
+    const [isCommentFormVisible, setIsCommentFormVisible] = useState(false);
 
     useEffect(() => {
         if (rank) {
@@ -42,6 +43,7 @@ const RankDetails = ({ handleDeleteRank, handleUpdateComment }) => {
         try {
             const updatedRank = await rankService.voteOnChoice(rankId, choiceId, vote);
             setRank(updatedRank);
+            handleUpdateSingleRank(updatedRank); // Update the global state
         } catch (error) {
             console.error("Failed to vote:", error);
         }
@@ -55,6 +57,8 @@ const RankDetails = ({ handleDeleteRank, handleUpdateComment }) => {
         try {
             const updatedRank = await rankService.addComment(rankId, commentFormData);
             setRank(updatedRank);
+            handleUpdateSingleRank(updatedRank); // Update the global state
+            setIsCommentFormVisible(false); // Hide form after submission
         } catch (error) {
             console.error("Failed to add comment:", error);
         }
@@ -64,6 +68,7 @@ const RankDetails = ({ handleDeleteRank, handleUpdateComment }) => {
         try {
             const updatedRank = await rankService.deleteComment(rankId, commentId);
             setRank(updatedRank);
+            handleUpdateSingleRank(updatedRank); // Update the global state
         } catch (error) {
             console.error("Failed to delete comment:", error);
         }
@@ -82,6 +87,7 @@ const RankDetails = ({ handleDeleteRank, handleUpdateComment }) => {
                 updatedRank = await rankService.downvote(rankId);
             }
             setRank(updatedRank);
+            handleUpdateSingleRank(updatedRank); // Update the global state
         } catch (error) {
             console.error(`Failed to ${voteType} rank:`, error);
         }
@@ -145,7 +151,6 @@ const RankDetails = ({ handleDeleteRank, handleUpdateComment }) => {
             {/* Placeholder for comments section */}
             <div className={styles.commentsSection}>
                 <h2>Comments</h2>
-                {user && !isAuthor && <CommentForm handleAddComment={handleAddComment} />}
                 <div className={styles.commentsList}>
                     {rank.comments?.length ? (
                         rank.comments.map(comment => (
@@ -161,6 +166,17 @@ const RankDetails = ({ handleDeleteRank, handleUpdateComment }) => {
                         <p>No comments yet.</p>
                     )}
                 </div>
+                {user && !isAuthor && (
+                    isCommentFormVisible ? (
+                        <CommentForm handleAddComment={handleAddComment} />
+                    ) : (
+                        <div className={styles.addCommentContainer}>
+                            <button onClick={() => setIsCommentFormVisible(true)} className={styles.addCommentButton}>
+                                Add a Comment
+                            </button>
+                        </div>
+                    )
+                )}
             </div>
         </main>
     );

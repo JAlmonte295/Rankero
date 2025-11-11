@@ -147,7 +147,6 @@ main {
   padding-top: 60px; /* Add padding for the fixed header */
   padding-left: 240px; /* Keep existing padding */
   height: 100vh;
-  overflow-y: auto;
   transition: padding-left 0.3s ease-in-out;
 }
 

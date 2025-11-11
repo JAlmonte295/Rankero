@@ -38,6 +38,10 @@ const App = () => {
     navigate(`/ranks/${rankId}`);
   };
 
+  const handleUpdateSingleRank = (updatedRank) => {
+    setRanks(ranks.map((rank) => (rank._id === updatedRank._id ? updatedRank : rank)));
+  };
+
   const handleUpdateComment = async (rankId, commentId, commentFormData) => {
     const updatedRank = await rankService.updateComment(rankId, commentId, commentFormData);
     setRanks(ranks.map((rank) => (rank._id === updatedRank._id ? updatedRank : rank)));
@@ -75,14 +79,14 @@ const App = () => {
         {user ? (
           <>
           <Route path='/ranks/new' element={<RankForm handleAddRank={handleAddRank}  />} />
-          <Route path='/ranks/:rankId' element={<RankDetails handleDeleteRank={handleDeleteRank} handleUpdateComment={handleUpdateComment} />} />
+          <Route path='/ranks/:rankId' element={<RankDetails handleDeleteRank={handleDeleteRank} handleUpdateComment={handleUpdateComment} handleUpdateSingleRank={handleUpdateSingleRank} />} />
           <Route path='/ranks/:rankId/edit' element={<RankForm handleUpdateRank={handleUpdateRank}/>} />
           <Route path='/my-ranks' element={<MyRanks allRanks={ranks} />} />
           </>
 
         ) : (
           <>
-          <Route path='/ranks/:rankId' element={<RankDetails handleDeleteRank={handleDeleteRank} />} />
+          <Route path='/ranks/:rankId' element={<RankDetails handleDeleteRank={handleDeleteRank} handleUpdateSingleRank={handleUpdateSingleRank} />} />
           <Route path='/sign-up' element={<SignUpForm />} />
           <Route path='/sign-in' element={<SignInForm />} />
           </>

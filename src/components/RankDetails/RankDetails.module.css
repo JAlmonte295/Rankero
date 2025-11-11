@@ -238,3 +238,26 @@
   color: #aaa;
   cursor: pointer;
 }
+
+.addCommentContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.addCommentButton {
+  background-color: var(--accent);
+  color: var(--background);
+  border: none;
+  padding: 12px 25px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  font-size: 1em;
+}
+
+.addCommentButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
