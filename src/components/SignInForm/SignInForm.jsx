@@ -1,75 +1,57 @@
 import { useState, useContext } from 'react';
-import { useNavigate } from 'react-router';
-
-import { signIn } from '../../services/authService';
-
+import { useNavigate } from 'react-router-dom';
+import * as authService from '../../services/authService';
 import { UserContext } from '../../contexts/UserContext';
-
 import styles from './SignInForm.module.css';
-
-
 
 const SignInForm = () => {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
-  const [message, setMessage] = useState('');
   const [formData, setFormData] = useState({
     username: '',
     password: '',
   });
 
-  const handleChange = (evt) => {
-    setMessage('');
-    setFormData({ ...formData, [evt.target.name]: evt.target.value });
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (evt) => {
-    evt.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      const signedInUser = await signIn(formData);
-      setUser(signedInUser);
+      const user = await authService.signIn(formData);
+      setUser(user);
       navigate('/');
     } catch (err) {
-      setMessage(err.message);
+      console.error(err);
+      // You can add error handling here, e.g., displaying a message to the user
     }
   };
 
   return (
     <main className={styles.container}>
-      <section>
-      <form autoComplete='off' onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <h1>Sign In</h1>
-      <p>{message}</p>
-        <div>
-          <label htmlFor='email'>Username:</label>
-          <input
-            type='text'
-            autoComplete='off'
-            id='username'
-            value={formData.username}
-            name='username'
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor='password'>Password:</label>
-          <input
-            type='password'
-            autoComplete='off'
-            id='password'
-            value={formData.password}
-            name='password'
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <button>Sign In</button>
-          <button onClick={() => navigate('/')}>Cancel</button>
-        </div>
+        <label htmlFor="username-input">Username</label>
+        <input
+          type="text"
+          id="username-input"
+          name="username"
+          value={formData.username}
+          onChange={handleChange}
+          required
+        />
+        <label htmlFor="password-input">Password</label>
+        <input
+          type="password"
+          id="password-input"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+        />
+        <button type="submit" className={styles.submitButton}>Sign In</button>
       </form>
-      </section>
     </main>
   );
 };

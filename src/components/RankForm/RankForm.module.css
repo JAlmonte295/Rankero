@@ -1,5 +1,7 @@
 .container {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   padding: 40px 20px;
 }
@@ -92,8 +94,25 @@
   align-self: flex-start; /* Align to the left */
 }
 
-.submitButton {
+.buttonContainer {
   margin-top: 20px;
+}
+
+.backButton {
+  background-color: var(--accent);
+  color: var(--background);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: background-color 0.2s;
+  width: auto; /* Allow the button to size to its content */
+}
+
+.submitButton {
+  width: 100%; /* Make submit button full width */
   padding: 15px;
   font-size: 1.2em;
   font-weight: bold;

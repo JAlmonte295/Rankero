@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import * as rankService from '../../services/rankService';
 import styles from './RankForm.module.css';
 
 
 const RankForm = (props) => {
     const { rankId } = useParams();
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         category: 'Games',
         title: '',
@@ -61,6 +62,7 @@ const RankForm = (props) => {
 
     return (
         <main className={styles.container}>
+            <button type="button" onClick={() => navigate(-1)} className={styles.backButton}>&larr; Back</button>
             <form onSubmit={handleSubmit} className={styles.form}>
                 <h1>{rankId ? 'Edit Rank' : 'New Rank'}</h1>
                 <label htmlFor='category-input'>Category</label>
@@ -124,7 +126,9 @@ const RankForm = (props) => {
                     ))}
                     <button type="button" onClick={handleAddListItem} className={styles.addButton}>+ Add Item</button>
                 </div>
-                <button type='submit' className={styles.submitButton}>Submit</button>
+                <div className={styles.buttonContainer}>
+                    <button type='submit' className={styles.submitButton}>Submit</button>
+                </div>
             </form>
         </main>
     );

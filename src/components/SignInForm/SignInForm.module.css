@@ -1,91 +1,61 @@
-/* src/components/SignInForm/SignInForm.module.css */
-
 .container {
-  height: 100%;
   display: flex;
-  overflow: hidden;
-  align-items: center;
-}
-
-.container p {
-  margin: 0;
-  padding: 0px 0 10px;
-}
-
-.container img {
-  width: 65%;
-  max-width: 500px;
-}
-
-.container section {
-  width: 50%;
-  height: 100%;
-  display: flex;
-  padding: 28px 21px;
-  align-items: center;
-  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  min-height: calc(100vh - 60px); /* Full height minus header */
 }
 
-.container section:first-child {
-  background-color: #fdfeff;
-}
-
-.container input {
-  margin: 7px 0px 14px 0px;
-}
-
-.container input,
-button {
+.form {
+  background-color: var(--card-background);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 30px 40px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
   width: 100%;
-  padding: 14px;
-  font-size: 14px;
-  border-radius: 5px;
-  border: 1px solid rgb(220, 220, 220);
-}
-
-.container div {
-  width: 100%;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
+  gap: 20px;
 }
 
-.container label {
-  font-weight: 600;
-  margin: 7px 0px 14px 0px;
-}
-
-.container button {
-  color: white;
-  font-weight: 600;
-  background: #00a0df;
-  margin: 21px 0px 0px 0px;
-}
-
-.container a {
-  border: none;
-  font-size: 14px;
-  background: none;
-  font-weight: 500;
-  margin-top: 14px;
+.form h1 {
   text-align: center;
-  color: rgb(200, 200, 200);
+  margin-bottom: 10px;
+  font-size: 2.5em;
 }
 
-input:focus {
-  outline: none;
-  border: 1px solid #00a0df;
+.form label {
+  font-weight: bold;
+  font-size: 1.1em;
+  color: #eee;
+  margin-bottom: -10px;
 }
 
-@media only screen and (max-width: 912px) {
-  .container section {
-    width: 100%;
-    justify-content: flex-start;
-  }
-  .container section:first-child {
-    display: none;
-  }
-  .container form {
-    min-width: 100%;
-  }
+.form input {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.1em;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background-color: var(--background);
+  color: white;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.submitButton {
+  margin-top: 20px;
+  padding: 15px;
+  font-size: 1.2em;
+  font-weight: bold;
+  border-radius: 8px;
+  border: none;
+  background-color: var(--accent);
+  color: var(--background);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submitButton:hover {
+  background-color: var(--primary);
 }
