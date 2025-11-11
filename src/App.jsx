@@ -8,6 +8,7 @@ import SignUpForm from './components/SignUpForm/SignUpForm';
 import SignInForm from './components/SignInForm/SignInForm';
 import Landing from './components/Landing/Landing';
 import HomePage from './components/HomePage/HomePage';
+import MyRanks from './components/MyRanks/MyRanks';
 import RankList from './components/RankList/RankList';
 import RankDetails from './components/RankDetails/RankDetails';
 import RankForm from './components/RankForm/RankForm';
@@ -94,7 +95,7 @@ const App = () => {
             <Route path='/ranks/new' element={<RankForm handleAddRank={handleAddRank}  />} />
             <Route path='/ranks/:rankId' element={<RankDetails handleDeleteRank={handleDeleteRank} handleUpdateComment={handleUpdateComment} />} />
             <Route path='/ranks/:rankId/edit' element={<RankForm handleUpdateRank={handleUpdateRank} />} />
-            <Route path='/:userId/ranks' element={<RankList ranks={ranks} />} />
+            <Route path='/:userId/ranks' element={<MyRanks allRanks={ranks} />} />
             </>
   
           ) : (
