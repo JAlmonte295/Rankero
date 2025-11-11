@@ -1,0 +1,124 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  text-align: center;
+  color: white;
+}
+
+.hero {
+  margin-bottom: 60px;
+}
+
+.hero h1 {
+  font-size: 3.5em;
+  margin-bottom: 15px;
+  color: var(--primary);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero p {
+  font-size: 1.2em;
+  color: #ccc;
+  max-width: 600px;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.ctaButtons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.btn {
+  padding: 15px 30px;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 1.1em;
+  border: 2px solid transparent;
+}
+
+.btnPrimary {
+  background-color: var(--accent);
+  color: var(--background);
+}
+
+.btnPrimary:hover {
+  background-color: var(--primary);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.btnSecondary {
+  background-color: transparent;
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.btnSecondary:hover {
+  background-color: var(--accent);
+  color: var(--background);
+  transform: translateY(-3px);
+}
+
+.showcase {
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 40px;
+}
+
+.showcase h2 {
+  font-size: 2.5em;
+  margin-bottom: 30px;
+  color: white;
+}
+
+.ranksContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.rankCard {
+  background-color: var(--card-background);
+  padding: 25px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: white;
+  text-align: left;
+  border: 1px solid var(--border);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.rankCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.rankCategory {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 15px;
+  font-size: 0.8em;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  color: white;
+}
+
+.rankTitle {
+  font-size: 1.5em;
+  margin: 0 0 10px 0;
+  color: white;
+}
+
+.rankAuthor {
+  font-size: 0.9em;
+  color: #aaa;
+  font-style: italic;
+}

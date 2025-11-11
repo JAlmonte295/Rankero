@@ -52,7 +52,7 @@ const App = () => {
 
   const getPageTitle = () => {
     const path = location.pathname;
-    if (path === '/') return 'Ranks';
+    if (path === '/') return user ? 'Ranks' : '';
     if (path === '/ranks') return 'All Ranks';
     if (path === '/ranks/new') return 'Create New Rank';
     if (path.startsWith('/ranks/') && path.endsWith('/edit')) return 'Edit Rank';

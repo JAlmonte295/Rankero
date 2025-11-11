@@ -131,7 +131,7 @@ const RankDetails = ({ handleDeleteRank, handleUpdateComment }) => {
             {/* Placeholder for comments section */}
             <div className={styles.commentsSection}>
                 <h2>Comments</h2>
-                {user && <CommentForm handleAddComment={handleAddComment} />}
+                {user && !isAuthor && <CommentForm handleAddComment={handleAddComment} />}
                 <div className={styles.commentsList}>
                     {rank.comments?.length ? (
                         rank.comments.map(comment => (
@@ -147,7 +147,6 @@ const RankDetails = ({ handleDeleteRank, handleUpdateComment }) => {
                         <p>No comments yet.</p>
                     )}
                 </div>
-                <p>No comments yet.</p>
             </div>
         </main>
     );
