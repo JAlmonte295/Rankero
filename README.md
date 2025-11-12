@@ -27,7 +27,7 @@ This project was built to explore modern front-end development with React, inclu
 ## Getting started
 
 ### Links
-- **Deployed Application**: [Rankero](YOUR_DEPLOYED_APP_URL)
+- **Deployed Application**: [Rankero](https://rankeroapp.netlify.app)
 - **Back-End Repository**: [Rankero API](https://github.com/JAlmonte295/Rankero_API)
 - **Planning Materials**: [Trello Board](https://trello.com/b/HbZxcx5f/el-rankero-working-title-unit-3-lab-mern-stack-crud-app-project)
 
