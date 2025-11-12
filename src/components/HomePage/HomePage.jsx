@@ -4,36 +4,36 @@ import { Link } from 'react-router-dom';
 import PageHeader from '../PageHeader/PageHeader';
 import CategoryGrid from '../CategoryGrid/CategoryGrid';
 import styles from './HomePage.module.css';
-import landingStyles from '../Landing/Landing.module.css'; // Import styles from Landing page
+import landingStyles from '../Landing/Landing.module.css'; 
 import { getCategoryColor } from '../../utils/colorUtils';
 
 const HomePage = ({ ranks }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [inputValue, setInputValue] = useState('');
-  const [searchTerm, setSearchTerm] = useState(''); // This will be debounced
+  const [searchTerm, setSearchTerm] = useState(''); 
   
   useEffect(() => {
     document.title = 'Explore Ranks';
   }, []);
 
-  // Debounce effect to delay searching
+ 
   useEffect(() => {
     const timer = setTimeout(() => {
       setSearchTerm(inputValue);
-    }, 500); // 500ms delay
+    }, 500);
 
     return () => {
       clearTimeout(timer);
     };
-  }, [inputValue, ranks]); // Re-run if inputValue or ranks change
+  }, [inputValue, ranks]);
 
-  // Memoize the extraction of unique categories to avoid recalculating on every render
+  
   const categories = useMemo(() => {
     const categorySet = new Set(ranks.map(rank => rank.category || 'Uncategorized'));
     return Array.from(categorySet);
   }, [ranks]);
 
-  // Memoize the filtered ranks to show when a category is selected
+  
   const filteredRanks = useMemo(() => {
     if (!selectedCategory) {
       return [];
@@ -41,7 +41,7 @@ const HomePage = ({ ranks }) => {
     return ranks.filter(rank => (rank.category || 'Uncategorized') === selectedCategory);
   }, [ranks, selectedCategory]);
 
-  // Showcase top 3 ranks by score and creation date
+  
   const trendingRanks = ranks ? [...ranks].sort((a, b) => (b.score || 0) - (a.score || 0)).slice(0, 3) : [];
   const newestRanks = ranks ? [...ranks].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 3) : [];
 
@@ -49,7 +49,7 @@ const HomePage = ({ ranks }) => {
 
   if (selectedCategory) {
     return (
-      // Pass a function to allow RankList to reset the view
+      
       <RankList ranks={filteredRanks} onBack={() => setSelectedCategory(null)} />
     );
   }

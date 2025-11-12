@@ -114,9 +114,9 @@
   font-weight: bold;
   font-size: 1.2em;
   transition: background-color 0.2s, transform 0.2s;
-  background-color: #155724; /* A darker, accessible green */
+  background-color: #155724; 
   color: white;
-  align-self: flex-start; /* Align to the left */
+  align-self: flex-start; 
 }
 
 .buttonContainer {
@@ -133,11 +133,11 @@
   cursor: pointer;
   margin-bottom: 20px;
   transition: background-color 0.2s;
-  width: auto; /* Allow the button to size to its content */
+  width: auto; 
 }
 
 .submitButton {
-  width: 100%; /* Make submit button full width */
+  width: 100%; 
   padding: 15px;
   font-size: 1.2em;
   font-weight: bold;
@@ -156,9 +156,9 @@
 @media (max-width: 768px) {
   .listItem {
     flex-direction: column;
-    align-items: stretch; /* Make inputs take full width */
+    align-items: stretch; 
   }
   .listItem input {
-    width: 100%; /* Ensure inputs take full width in column layout */
+    width: 100%; 
   }
 }

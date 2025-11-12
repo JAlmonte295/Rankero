@@ -1,4 +1,3 @@
-/* src/index.css */
 
 * {
   box-sizing: border-box;
@@ -7,7 +6,7 @@
 html,
 body {
   margin: 0;
-  /* The linear-gradient creates a semi-transparent overlay on top of the image. */
+
   background-image: linear-gradient(rgba(172, 180, 140, 0.274), rgba(17, 24, 39, 0.95)), url(./assets/images/background.png);
   background-size: cover;
   background-position: center;
@@ -16,19 +15,19 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-family: sans-serif;
 
-  /* New Color Palette */
-  --primary: #d4b700; /* A darker, richer yellow for hover states */
-  --accent: #F8D210; /* A brighter, more accessible yellow */
+
+  --primary: #d4b700; 
+  --accent: #F8D210; 
   --tangelo: #fb5012;
   --fluorescent-cyan: #01fdf6;
   --periwinkle: #cbbaed;
   --aureolin: #e9df00;
   --aquamarine: #03fcba;
 
-  --danger: #8B1823; /* Darker red for better contrast (WCAG AAA) */
-  --background: #181A1B; /* A very dark, slightly warm gray */
-  --card-background: #25282A; /* A lighter gray for cards */
-  --border: #33373A; /* A subtle border color */
+  --danger: #8B1823; 
+  --background: #181A1B; 
+  --card-background: #25282A; 
+  --border: #33373A; 
 }
 
 article img {
@@ -128,11 +127,11 @@ body.nav-closed .navbar {
 .navbar {
   position: fixed;
   left: 0;
-  top: 60px; /* Position below the header */
-  height: calc(100% - 60px); /* Adjust height */
+  top: 60px; 
+  height: calc(100% - 60px); 
   width: 240px;
   background-color: var(--background);
   border-right: 1px solid var(--border);
   transition: transform 0.3s ease-in-out;
-  z-index: 999; /* Below header, above main content */
+  z-index: 999; 
 }

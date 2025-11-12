@@ -50,7 +50,7 @@
 .author {
   text-align: center;
   font-style: italic;
-  color: #ccc; /* Increased contrast for accessibility */
+  color: #ccc;
 }
 
 .author span {
@@ -84,7 +84,7 @@
 }
 
 .rankVoteButton img {
-  width: 40px; /* Adjust size as needed */
+  width: 40px; 
   height: 40px;
 }
 
@@ -138,7 +138,7 @@
 .listHeader h2 {
   font-size: 2em;
   color: white;
-  margin: 0; /* Remove default margin */
+  margin: 0; 
 }
 
 .choiceBanner {
@@ -150,7 +150,7 @@
   padding: 30px;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Pushes voting to the right */
+  justify-content: space-between; 
   gap: 25px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
   border-left: 5px solid var(--accent);
@@ -172,7 +172,7 @@
   font-size: 2em;
   margin: 0;
   color: white;
-  flex-grow: 1; /* Allows the name to take up available space */
+  flex-grow: 1; 
 }
 
 .votingContainer {
@@ -204,8 +204,8 @@
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-.voteButton:first-of-type:hover { color: #4CAF50; } /* Green for upvote */
-.voteButton:last-of-type:hover { color: #F44336; } /* Red for downvote */
+.voteButton:first-of-type:hover { color: #4CAF50; } 
+.voteButton:last-of-type:hover { color: #F44336; } 
 
 
 .score {
@@ -276,15 +276,15 @@
 
 .imagePreview {
   position: fixed;
-  width: 300px; /* Fixed width for the preview */
-  height: 300px; /* Fixed height for the preview */
-  object-fit: cover; /* Ensures the image fills the container */
+  width: 300px; 
+  height: 300px; 
+  object-fit: cover; 
   border-radius: 8px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
   border: 3px solid white;
-  pointer-events: none; /* Prevents the image from blocking mouse events */
+  pointer-events: none; 
   z-index: 1000;
-  /* The top and left properties are set inline via the style prop */
+
 }
 
 @media (max-width: 768px) {

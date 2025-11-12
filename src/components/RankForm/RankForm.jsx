@@ -12,7 +12,7 @@ const RankForm = (props) => {
         category: 'Games',
         title: '',
         description: '',
-        list: [{ id: Date.now(), itemName: '', imageUrl: '' }], // Start with one empty item with a unique id
+        list: [{ id: Date.now(), itemName: '', imageUrl: '' }], 
 
     });
     const handleChange = (evt) => {
@@ -38,7 +38,7 @@ const RankForm = (props) => {
     };
 
     const handleMoveItemUp = (index) => {
-        if (index === 0) return; // Can't move up if it's the first item
+        if (index === 0) return; 
         const list = [...formData.list];
         const itemToMove = list[index];
         list[index] = list[index - 1];
@@ -47,9 +47,9 @@ const RankForm = (props) => {
     };
 
     const handleMoveItemDown = (index) => {
-        if (index === formData.list.length - 1) return; // Can't move down if it's the last item
+        if (index === formData.list.length - 1) return; 
         const list = [...formData.list];
-        [list[index], list[index + 1]] = [list[index + 1], list[index]]; // Swap with item below
+        [list[index], list[index + 1]] = [list[index + 1], list[index]]; 
         setFormData({ ...formData, list });
     };
 
@@ -70,10 +70,10 @@ const RankForm = (props) => {
     useEffect(() => {
         const fetchRank = async () => {
             const rankData = await rankService.show(rankId);
-            // Ensure all list items have a unique ID for React's key prop
+            
             const listWithIds = rankData.list.map((item, index) => ({
                 ...item,
-                // Use existing _id or generate a temporary one
+                
                 id: item._id || Date.now() + index,
             }));
             setFormData({ ...rankData, list: listWithIds });

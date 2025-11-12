@@ -27,8 +27,7 @@ const RankDetails = ({ handleDeleteRank, handleUpdateComment, handleUpdateSingle
             try {
                 const rankData = await rankService.show(rankId);
                 setRank(rankData);
-            } catch (error) {
-                // Handle or log error appropriately
+            } catch (error) { 
             }
         };
         fetchRank();
@@ -42,9 +41,8 @@ const RankDetails = ({ handleDeleteRank, handleUpdateComment, handleUpdateSingle
         try {
             const updatedRank = await rankService.voteOnChoice(rankId, choiceId, vote);
             setRank(updatedRank);
-            handleUpdateSingleRank(updatedRank); // Update the global state
-        } catch (error) {
-            // Handle or log error appropriately
+            handleUpdateSingleRank(updatedRank); 
+        } catch (error) { 
         }
     };
 
@@ -56,10 +54,9 @@ const RankDetails = ({ handleDeleteRank, handleUpdateComment, handleUpdateSingle
         try {
             const updatedRank = await rankService.addComment(rankId, commentFormData);
             setRank(updatedRank);
-            handleUpdateSingleRank(updatedRank); // Update the global state
-            setIsCommentFormVisible(false); // Hide form after submission
-        } catch (error) {
-            // Handle or log error appropriately
+            handleUpdateSingleRank(updatedRank); 
+            setIsCommentFormVisible(false); 
+        } catch (error) { 
         }
     };
 
@@ -67,9 +64,8 @@ const RankDetails = ({ handleDeleteRank, handleUpdateComment, handleUpdateSingle
         try {
             const updatedRank = await rankService.deleteComment(rankId, commentId);
             setRank(updatedRank);
-            handleUpdateSingleRank(updatedRank); // Update the global state
-        } catch (error) {
-            // Handle or log error appropriately
+            handleUpdateSingleRank(updatedRank); 
+        } catch (error) { 
         }
     };
 
@@ -86,16 +82,14 @@ const RankDetails = ({ handleDeleteRank, handleUpdateComment, handleUpdateSingle
                 updatedRank = await rankService.downvote(rankId);
             }
             setRank(updatedRank);
-            handleUpdateSingleRank(updatedRank); // Update the global state
-        } catch (error) {
-            // Handle or log error appropriately
+            handleUpdateSingleRank(updatedRank); 
+        } catch (error) { 
         }
     };
 
     const isAuthor = user && rank && user._id === rank.author?._id;
 
     const handleBack = () => {
-        // If the user is the author, go to My Ranks, otherwise go back in history
         isAuthor ? navigate('/my-ranks') : navigate(-1);
     };
 

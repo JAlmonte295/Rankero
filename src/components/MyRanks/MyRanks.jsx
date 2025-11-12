@@ -4,7 +4,7 @@ import RankList from '../RankList/RankList';
 import PageHeader from '../PageHeader/PageHeader';
 import { UserContext } from '../../contexts/UserContext';
 import styles from './MyRanks.module.css';
-import homePageStyles from '../HomePage/HomePage.module.css'; // Import styles from HomePage
+import homePageStyles from '../HomePage/HomePage.module.css'; 
 
 const MyRanks = ({ allRanks }) => {
   const { user } = useContext(UserContext);
@@ -18,7 +18,6 @@ const MyRanks = ({ allRanks }) => {
 
   useEffect(() => {
     if (user && allRanks?.length) {
-      // Filter the ranks to only include those created by the current user
       const userRanks = allRanks.filter(rank => rank.author && rank.author._id === user._id);
       setMyRanks(userRanks);
     } else if (user) {

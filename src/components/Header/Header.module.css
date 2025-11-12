@@ -3,14 +3,14 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 60px; /* Standard header height */
+  height: 60px; 
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* Align items to the left */
+  justify-content: flex-start; 
   background: linear-gradient(90deg, #ff7e5f, #feb47b, #ffc371, #f5d020, #cbbaed, #8e9eab, #01fdf6, #03fcba);
   background-size: 400% auto;
   border-bottom: 1px solid var(--border);
-  z-index: 1000; /* Ensure it's above the navbar */
+  z-index: 1000; 
   padding: 0 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   animation: gradient-animation 15s ease infinite;

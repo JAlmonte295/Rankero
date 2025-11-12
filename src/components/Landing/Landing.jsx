@@ -8,7 +8,6 @@ const Landing = ({ ranks }) => {
     document.title = 'Rankero';
   }, []);
 
-  // Showcase top 3 ranks by score and creation date
   const trendingRanks = ranks ? [...ranks].sort((a, b) => (b.score || 0) - (a.score || 0)).slice(0, 3) : [];
   const newestRanks = ranks ? [...ranks].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 3) : [];
 
