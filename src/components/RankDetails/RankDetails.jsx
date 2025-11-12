@@ -14,6 +14,7 @@ const RankDetails = ({ handleDeleteRank, handleUpdateComment, handleUpdateSingle
     const [rank, setRank] = useState(null);
     const navigate = useNavigate();
     const [isCommentFormVisible, setIsCommentFormVisible] = useState(false);
+    const [preview, setPreview] = useState({ url: null, x: 0, y: 0 });
 
     useEffect(() => {
         if (rank) {
@@ -98,6 +99,18 @@ const RankDetails = ({ handleDeleteRank, handleUpdateComment, handleUpdateSingle
         isAuthor ? navigate('/my-ranks') : navigate(-1);
     };
 
+    const handleMouseMove = (e) => {
+        if (preview.url) {
+            setPreview(p => ({ ...p, x: e.clientX, y: e.clientY }));
+        }
+    };
+
+    const handleMouseEnter = (imageUrl) => {
+        if (imageUrl) {
+            setPreview(p => ({ ...p, url: imageUrl }));
+        }
+    };
+
     if (!rank) {
         return <div className={styles.loading}>Loading...</div>;
     }
@@ -107,16 +120,18 @@ const RankDetails = ({ handleDeleteRank, handleUpdateComment, handleUpdateSingle
             <button onClick={handleBack} className={styles.backButton}>
                 &larr; Back
             </button>
-            <PageHeader title={rank.title} />
+            <PageHeader title={rank.title} category={rank.category} />
             <div className={styles.rankMeta}>                <p className={styles.description}>{rank.description}</p>
                 <p className={styles.author}>
                     Created by: <span>{rank.author?.username || 'Unknown'}</span>
                 </p>
-                <div className={styles.rankVotingContainer}>
-                    <button onClick={() => handleRankVote('up')} className={styles.rankVoteButton}><img src={upvoteImage} alt="Upvote" /></button>
-                    <span className={styles.rankScore}>{rank.score || 0}</span>
-                    <button onClick={() => handleRankVote('down')} className={styles.rankVoteButton}><img src={downvoteImage} alt="Downvote" /></button>
-                </div>
+                {!isAuthor && (
+                    <div className={styles.rankVotingContainer}>
+                        <button onClick={() => handleRankVote('up')} className={styles.rankVoteButton}><img src={upvoteImage} alt="Upvote" /></button>
+                        <span className={styles.rankScore}>{rank.score || 0}</span>
+                        <button onClick={() => handleRankVote('down')} className={styles.rankVoteButton}><img src={downvoteImage} alt="Downvote" /></button>
+                    </div>
+                )}
             </div>
 
             <div className={styles.listContainer}>
@@ -133,15 +148,20 @@ const RankDetails = ({ handleDeleteRank, handleUpdateComment, handleUpdateSingle
                     <div
                         key={choice._id || index}
                         className={styles.choiceBanner}
+                        onMouseEnter={() => handleMouseEnter(choice.imageUrl)}
+                        onMouseMove={handleMouseMove}
+                        onMouseLeave={() => setPreview({ url: null, x: 0, y: 0 })}
                         style={{ backgroundImage: choice.imageUrl ? `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${choice.imageUrl})` : '' }}
                     >
                         <span className={styles.rankPosition}>#{index + 1}</span>
                         <h3 className={styles.choiceName}>{choice.itemName}</h3>
-                        <div className={styles.votingContainer}>
-                            <button onClick={() => handleVote(choice._id, 'up')} className={styles.voteButton}>👍</button>
-                            <span className={styles.score}>{choice.score || 0}</span>
-                            <button onClick={() => handleVote(choice._id, 'down')} className={styles.voteButton}>👎</button>
-                        </div>
+                        {!isAuthor && (
+                            <div className={styles.votingContainer}>
+                                <button onClick={() => handleVote(choice._id, 'up')} className={styles.voteButton}>▲</button>
+                                <span className={styles.score}>{choice.score || 0}</span>
+                                <button onClick={() => handleVote(choice._id, 'down')} className={styles.voteButton}>▼</button>
+                            </div>
+                        )}
                     </div>
                 ))}
             </div>
@@ -175,6 +195,14 @@ const RankDetails = ({ handleDeleteRank, handleUpdateComment, handleUpdateSingle
                     )
                 )}
             </div>
+            {preview.url && (
+                <img
+                    src={preview.url}
+                    alt="Preview"
+                    className={styles.imagePreview}
+                    style={{ top: `${preview.y + 15}px`, left: `${preview.x + 15}px` }}
+                />
+            )}
         </div>
     );
 };

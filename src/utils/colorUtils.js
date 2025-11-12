@@ -6,12 +6,20 @@
  * @returns {string} An HSL color string.
  */
 export const getCategoryColor = (str) => {
-  if (!str) return 'hsl(0, 0%, 33%)'; // A neutral gray for uncategorized items
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    hash = str.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  const h = hash % 360;
-  // Using 70% saturation and 35% lightness provides even better contrast
-  return `hsl(${h}, 70%, 35%)`;
+  // A direct mapping of categories to specific, vibrant, and accessible colors.
+  const COLOR_MAP = {
+    'Games': '#942a25', // Darker Red for AAA contrast
+    'Movies': '#2980b9', // Blue
+    'TV Shows': '#27ae60', // Green
+    'Music': '#6c3483', // Darker Purple for AAA contrast
+    'Books': '#874c14', // Darker Orange for AAA contrast
+    'Food': '#0b5345', // Darker Teal for AAA contrast
+    'Sports': '#d35400', // Pumpkin
+    'Travel': '#2c3e50', // Midnight Blue
+    'Other': '#7f8c8d',  // Gray
+    'Uncategorized': '#7f8c8d', // Gray
+  };
+
+  // Return the color from the map, or a default gray if the category is not found.
+  return COLOR_MAP[str] || '#7f8c8d';
 };

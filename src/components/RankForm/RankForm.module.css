@@ -70,6 +70,12 @@
   flex-grow: 1; /* Allow this input to grow */
 }
 
+.itemActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .removeButton {
   padding: 10px 15px;
   border: none;
@@ -80,6 +86,25 @@
   background-color: var(--danger);
   color: white;
 }
+.moveButton {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: #495057; /* A neutral gray */
+  color: white;
+  transition: background-color 0.2s;
+}
+
+.moveButton:hover:not(:disabled) {
+  background-color: #6c757d;
+}
+
+.moveButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
 
 .addButton {
   padding: 10px 15px;
@@ -89,7 +114,7 @@
   font-weight: bold;
   font-size: 1.2em;
   transition: background-color 0.2s, transform 0.2s;
-  background-color: #28a745; /* A nice green for adding */
+  background-color: #155724; /* A darker, accessible green */
   color: white;
   align-self: flex-start; /* Align to the left */
 }
@@ -126,4 +151,14 @@
 
 .submitButton:hover {
   background-color: var(--primary);
+}
+
+@media (max-width: 768px) {
+  .listItem {
+    flex-direction: column;
+    align-items: stretch; /* Make inputs take full width */
+  }
+  .listItem input {
+    width: 100%; /* Ensure inputs take full width in column layout */
+  }
 }

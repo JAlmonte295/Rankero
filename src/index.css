@@ -7,8 +7,6 @@
 html,
 body {
   margin: 0;
-  height: 100%;
-  overflow: hidden;
   /* The linear-gradient creates a semi-transparent overlay on top of the image. */
   background-image: linear-gradient(rgba(172, 180, 140, 0.274), rgba(17, 24, 39, 0.95)), url(./assets/images/background.png);
   background-size: cover;
@@ -27,7 +25,7 @@ body {
   --aureolin: #e9df00;
   --aquamarine: #03fcba;
 
-  --danger: #dc3545;
+  --danger: #8B1823; /* Darker red for better contrast (WCAG AAA) */
   --background: #181A1B; /* A very dark, slightly warm gray */
   --card-background: #25282A; /* A lighter gray for cards */
   --border: #33373A; /* A subtle border color */
@@ -92,10 +90,6 @@ form {
 button,
 a {
   cursor: pointer;
-}
-
-body:not(.nav-closed) {
-  overflow: auto;
 }
 
 .menu-button {

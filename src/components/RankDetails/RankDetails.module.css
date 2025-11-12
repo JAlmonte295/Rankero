@@ -50,7 +50,7 @@
 .author {
   text-align: center;
   font-style: italic;
-  color: #aaa;
+  color: #ccc; /* Increased contrast for accessibility */
 }
 
 .author span {
@@ -187,14 +187,26 @@
 .voteButton {
   background: none;
   border: none;
-  font-size: 1.5em;
+  font-size: 1.2em;
   cursor: pointer;
   transition: transform 0.2s;
+  color: #ccc;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .voteButton:hover {
   transform: scale(1.2);
+  background-color: rgba(255, 255, 255, 0.1);
 }
+
+.voteButton:first-of-type:hover { color: #4CAF50; } /* Green for upvote */
+.voteButton:last-of-type:hover { color: #F44336; } /* Red for downvote */
+
 
 .score {
   font-size: 1.5em;
@@ -260,4 +272,35 @@
 .addCommentButton:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.imagePreview {
+  position: fixed;
+  width: 300px; /* Fixed width for the preview */
+  height: 300px; /* Fixed height for the preview */
+  object-fit: cover; /* Ensures the image fills the container */
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  border: 3px solid white;
+  pointer-events: none; /* Prevents the image from blocking mouse events */
+  z-index: 1000;
+  /* The top and left properties are set inline via the style prop */
+}
+
+@media (max-width: 768px) {
+  .container {
+    margin: 20px auto;
+    padding: 10px;
+  }
+
+  .choiceBanner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 20px;
+  }
+
+  .choiceName {
+    font-size: 1.5em;
+  }
 }

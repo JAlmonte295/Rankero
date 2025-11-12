@@ -37,6 +37,22 @@ const RankForm = (props) => {
         setFormData({ ...formData, list });
     };
 
+    const handleMoveItemUp = (index) => {
+        if (index === 0) return; // Can't move up if it's the first item
+        const list = [...formData.list];
+        const itemToMove = list[index];
+        list[index] = list[index - 1];
+        list[index - 1] = itemToMove;
+        setFormData({ ...formData, list });
+    };
+
+    const handleMoveItemDown = (index) => {
+        if (index === formData.list.length - 1) return; // Can't move down if it's the last item
+        const list = [...formData.list];
+        [list[index], list[index + 1]] = [list[index + 1], list[index]]; // Swap with item below
+        setFormData({ ...formData, list });
+    };
+
     const handleSubmit = (evt) => {
         evt.preventDefault();
         if (rankId) {
@@ -96,6 +112,7 @@ const RankForm = (props) => {
                     name='title'
                     value={formData.title}
                     onChange={handleChange}
+                    placeholder="Write down the title of your ranking"
                 />
                 <label htmlFor='description-input'>Description</label>
                 <input
@@ -104,6 +121,7 @@ const RankForm = (props) => {
                     name='description'
                     value={formData.description}
                     onChange={handleChange}
+                    placeholder="Write down the description of your ranking"
                 />
                 <div className={styles.listItemsContainer}>
                     <label>List Items</label>
@@ -124,9 +142,27 @@ const RankForm = (props) => {
                                 onChange={(evt) => handleListChange(evt, index)}
                                 placeholder='Image URL (optional)'
                             />
-                            {formData.list.length > 1 && (
-                                <button type="button" onClick={() => handleRemoveListItem(index)} className={styles.removeButton}>-</button>
-                            )}
+                            <div className={styles.itemActions}>
+                                <button
+                                    type="button"
+                                    onClick={() => handleMoveItemUp(index)}
+                                    disabled={index === 0}
+                                    className={styles.moveButton}
+                                >
+                                    ▲
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => handleMoveItemDown(index)}
+                                    disabled={index === formData.list.length - 1}
+                                    className={styles.moveButton}
+                                >
+                                    ▼
+                                </button>
+                                {formData.list.length > 1 && (
+                                    <button type="button" onClick={() => handleRemoveListItem(index)} className={styles.removeButton}>-</button>
+                                )}
+                            </div>
                         </div>
                     ))}
                     <button type="button" onClick={handleAddListItem} className={styles.addButton}>+ Add Item</button>

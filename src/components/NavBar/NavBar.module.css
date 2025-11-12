@@ -59,6 +59,12 @@
   color: var(--accent);
 }
 
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+  }
+}
+
 @media only screen and (max-width: 414px) {
   .container ul {
     padding-left: 0px;

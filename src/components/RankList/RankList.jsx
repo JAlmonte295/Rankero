@@ -48,6 +48,7 @@ const RankList = ({ ranks, onBack, initialSearchTerm = '' }) => {
           }}
         />
       </div>
+      <h2 className={styles.listTitle}>Matching Ranks</h2>
 
       <div className={styles.rankGrid}>
         {currentRanks.map((rank) => (
@@ -59,7 +60,7 @@ const RankList = ({ ranks, onBack, initialSearchTerm = '' }) => {
               >
                 {rank.category || 'Uncategorized'}
               </span>
-              <h3 className={styles.rankTitle}>{rank.title}</h3>
+              <h4 className={styles.rankTitle}>{rank.title}</h4>
               {rank.choices && rank.choices.length > 0 && (
                 <div className={styles.choicePreview}>
                   <h4>Choices Preview:</h4>

@@ -2,9 +2,16 @@
   padding-top: 60px; /* Space for the fixed header */
   padding-left: 240px; /* Space for the open navbar */
   transition: padding-left 0.3s ease-in-out;
-  height: 100vh;
+  height: calc(100vh - 60px); /* Full viewport height minus header */
+  overflow-y: auto; /* Allow vertical scrolling within the main content */
 }
 
 .app-main-content.nav-closed {
   padding-left: 0;
+}
+
+@media (max-width: 768px) {
+  .app-main-content {
+    padding-left: 0 !important; /* Remove sidebar padding on mobile */
+  }
 }

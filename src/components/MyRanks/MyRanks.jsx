@@ -10,10 +10,11 @@ const MyRanks = ({ allRanks }) => {
   const { user } = useContext(UserContext);
   const [myRanks, setMyRanks] = useState([]);
 
-  useEffect(() => {
-    document.title = 'My Ranks';
-  }, []);
+  const pageTitle = user ? `${user.username}'s Ranks` : 'My Ranks';
 
+  useEffect(() => {
+    document.title = pageTitle;
+  }, [pageTitle]);
 
   useEffect(() => {
     if (user && allRanks?.length) {
@@ -32,17 +33,17 @@ const MyRanks = ({ allRanks }) => {
   if (myRanks.length === 0) {
     return (
       <div className={styles.welcomeContainer}>
-        <PageHeader title="My Ranks" />
+        <PageHeader title={pageTitle} />
         <p>It looks like you haven't created any rank lists yet. Get started by creating your first one!</p>
-        <p>You can also visit the Ranks page to see what others have created.</p>
-        <Link to="/ranks/new" className={styles.createButton}>Create Your First Rank</Link>
+        <p>You can also visit the Explore Ranks page to see what others have created.</p>
+        <Link to="/ranks/new" className={homePageStyles.createRankButton}>Create Your First Rank</Link>
       </div>
     );
   }
 
   return (
     <>
-      <PageHeader title="My Ranks" />
+      <PageHeader title={pageTitle} />
       <RankList ranks={myRanks} />
       <div className={homePageStyles.actionsContainer}>
         <p>Ready to create another list?</p>
