@@ -1,4 +1,6 @@
-const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/users`;
+import { API_URL } from './apiConfig';
+
+const BASE_URL = `${API_URL}/users`;
 
 const index = async () => {
   try {

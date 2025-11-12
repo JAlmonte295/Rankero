@@ -1,6 +1,7 @@
-import sendRequest from "../services/api";
+import sendRequest from "./api";
+import { API_URL } from "./apiConfig";
 
-const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/ranks`;
+const BASE_URL = `${API_URL}/ranks`;
 
 const index = async () => {
     return sendRequest(`${BASE_URL}?populate=choices`);
