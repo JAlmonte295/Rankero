@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styles from './CommentForm.module.css';
+import styles from './Commentform.module.css';
 
 const CommentForm = ({ handleAddComment }) => {
   const [text, setText] = useState('');
