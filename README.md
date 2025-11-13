@@ -36,10 +36,25 @@ This project was built to explore modern front-end development with React, inclu
 + The logo and other image assets used in this application were generated with the assistance of **Google's Gemini**. 
 
 ## Technologies Used 
+
+### Front-End
 + **React:** A JavaScript library for building user interfaces. 
 + **React Router:** For declarative, client-side routing. +- JavaScript (ES6+): The core programming language. 
 + **CSS Modules:** For locally scoped CSS. 
 + **Vite:** A modern front-end build tool that provides a faster and leaner development experience.
+
+### Back-End
++ **Node.js:** A JavaScript runtime environment. 
++ **Express.js:** A minimal and flexible Node.js web application framework.
++ **MongoDB:** A NoSQL database for storing application data.
++ **Mongoose:** An ODM (Object Data Modeling) library for MongoDB and Node.js.
++ **JWT (JSON Web Tokens):** For secure user authentication.
+
+### Deployment
++ **Netlify:** For deploying the front-end application.
++ **Heroku:** For deploying the back-end API.
+
+
 
 ## Future Improvements
 + **Image Uploads:** Allow users to upload their own images for rank choices instead of providing URLs. 

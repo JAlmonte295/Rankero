@@ -119,13 +119,15 @@ const RankDetails = ({ handleDeleteRank, handleUpdateComment, handleUpdateSingle
                 <p className={styles.author}>
                     Created by: <span>{rank.author?.username || 'Unknown'}</span>
                 </p>
-                {!isAuthor && (
-                    <div className={styles.rankVotingContainer}>
+                <div className={styles.rankVotingContainer}>
+                    {!isAuthor ? (
+                        <>
                         <button onClick={() => handleRankVote('up')} className={styles.rankVoteButton}><img src={upvoteImage} alt="Upvote" /></button>
                         <span className={styles.rankScore}>{rank.score || 0}</span>
                         <button onClick={() => handleRankVote('down')} className={styles.rankVoteButton}><img src={downvoteImage} alt="Downvote" /></button>
-                    </div>
-                )}
+                        </>
+                    ) : <span className={styles.rankScore}>{rank.score || 0}</span>}
+                </div>
             </div>
 
             <div className={styles.listContainer}>
@@ -149,13 +151,15 @@ const RankDetails = ({ handleDeleteRank, handleUpdateComment, handleUpdateSingle
                     >
                         <span className={styles.rankPosition}>#{index + 1}</span>
                         <h3 className={styles.choiceName}>{choice.itemName}</h3>
-                        {!isAuthor && (
-                            <div className={styles.votingContainer}>
+                        <div className={styles.votingContainer}>
+                            {!isAuthor ? (
+                                <>
                                 <button onClick={() => handleVote(choice._id, 'up')} className={styles.voteButton}>▲</button>
                                 <span className={styles.score}>{choice.score || 0}</span>
                                 <button onClick={() => handleVote(choice._id, 'down')} className={styles.voteButton}>▼</button>
-                            </div>
-                        )}
+                                </>
+                            ) : <span className={styles.score}>{choice.score || 0}</span>}
+                        </div>
                     </div>
                 ))}
             </div>
